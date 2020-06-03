@@ -1,18 +1,18 @@
-import React from "react";
-import plants from "../../samplePlants";
-import PlantCard from "./PlantCard";
+import React, { useState } from "react";
+import clothes from "../../sampleClothes";
+import ClothCard from "./ClothCard";
 import Wrapper from "../../constants/Wrapper";
 import styled from "styled-components";
 import SearchForm from "./SearchForm";
 
-const PlantWrapper = styled.div`
+const ClothWrapper = styled.div`
   width: 80%;
   margin: 2rem auto;
   h1 {
     text-align: center;
   }
 `;
-const PlantDisplay = styled.div`
+const ClothDisplay = styled.div`
   margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr;
@@ -29,17 +29,34 @@ const PlantDisplay = styled.div`
 `;
 
 const Market = () => {
+  const [search, setSearch] = useState("");
+
+  const handleInput = (e) => {
+    let input = e.target.value.toLowerCase();
+    setSearch(input);
+  };
+
+  const filteredClothes = clothes.filter(
+    (cloth) => cloth.category.indexOf(search) > -1
+  );
+
+  console.log(clothes);
+  // console.log(filteredClothes);
   return (
     <Wrapper>
-      <SearchForm />
-      <PlantWrapper>
-        <h1>Here are the Plants</h1>
-        <PlantDisplay>
-          {Object.keys(plants).map((key) => (
-            <PlantCard key={key} index={key} plants={plants[key]} />
-          ))}
-        </PlantDisplay>
-      </PlantWrapper>
+      <SearchForm handleInput={handleInput} />
+      <ClothWrapper>
+        <h1>Here are the Clothes</h1>
+        <ClothDisplay>
+          {search.length > 0
+            ? Object.keys(
+                clothes.filter((cloth) => cloth.category.indexOf(search) > -1)
+              ).map((key) => (
+                <ClothCard key={key} index={key} clothes={filteredClothes[key]} />
+              ))
+            : null}
+        </ClothDisplay>
+      </ClothWrapper>
     </Wrapper>
   );
 };

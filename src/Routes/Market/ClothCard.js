@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import propTypes from "prop-types";
+import { LinkContainer } from "react-router-bootstrap";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -18,25 +19,17 @@ const CardWrapper = styled.div`
   }
 `;
 
-const PlantCard = ({ plants }) => {
-  const { image, name, desc, status } = plants;
+const ClothesCard = ({ clothes }) => {
+  const { images, name, desc, status } = clothes;
   return (
     <CardWrapper>
-      <h3 className="fish-name">{name}</h3>
-      <img src={image} alt={name} />
+      <img src={images[0]} alt={name} />
       <p>{desc}</p>
-      <button>Dowiedź się więcej</button>
+      <LinkContainer to="market/details">
+        <button>Dowiedź się więcej</button>
+      </LinkContainer>
     </CardWrapper>
   );
 };
 
-// Card.propTypes = {
-//   plants: PropTypes.shape({
-//     image: PropTypes.string,
-//     name: PropTypes.string,
-//     desc: PropTypes.string,
-//     status: PropTypes.string,
-//   }),
-// };
-
-export default PlantCard;
+export default ClothesCard;

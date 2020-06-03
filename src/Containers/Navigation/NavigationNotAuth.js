@@ -1,8 +1,8 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Link, useHistory } from "react-router-dom";
-import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import styled from "styled-components";
+import * as ROUTES from "../../constants/routes";
 
 const NavbarWrapper = styled.div`
   .navbar {
@@ -13,22 +13,22 @@ const NavbarWrapper = styled.div`
   }
 `;
 
-const Navigation = () => {
+const NavigationNotAuth = () => {
   return (
     <NavbarWrapper>
       <Navbar className="navbar" fixed bg="light" expand="lg">
-        <Navbar.Brand href="#home">Roślinny Market</Navbar.Brand>
+        <LinkContainer to={ROUTES.LANDING}>
+          <Navbar.Brand>The Cloth Exchange</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav>
-            <LinkContainer to="/">
-              <Nav.Link>Strona Główna</Nav.Link>
+            <LinkContainer to={ROUTES.HOME}>
+              <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/market">
-              <Nav.Link>Market</Nav.Link>
+            <LinkContainer to={ROUTES.SIGN_IN}>
+              <Nav.Link>Sign In</Nav.Link>
             </LinkContainer>
-            <Nav.Link href="#link">Zaloguj Się</Nav.Link>
-            <Nav.Link href="#link">O Nas</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -36,4 +36,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default NavigationNotAuth;

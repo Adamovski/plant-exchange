@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const HomeWrapper = styled.div`
+const LandingWrapper = styled.div`
   ${"" /* position: absolute;
   top: 0;
   left: 0; */}
@@ -17,14 +17,20 @@ const HomeWrapper = styled.div`
   .title{
       color:white;
   }
+  h1{
+    text-align:center;
+    }
 `;
 
-const HomePage = () => {
+const LandingPage = () => {
   return (
-    <HomeWrapper>
-      <h1 className="title">Dziel się naturą!</h1>
-    </HomeWrapper>
+    <LandingWrapper>
+      <h1 className="title">
+        Share your clothes
+        <br /> with the world!
+      </h1>
+    </LandingWrapper>
   );
 };
 
-export default HomePage;
+export default LandingPage;

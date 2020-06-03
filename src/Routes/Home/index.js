@@ -1,12 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Wrapper from "../../constants/Wrapper";
 
-export default function rejestracja() {
+export default function Home() {
   return (
     <Wrapper>
-      <div>Zarejestruj Się</div>
+      <div>Home Page</div>
     </Wrapper>
   );
 }
-
