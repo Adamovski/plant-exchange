@@ -3,7 +3,7 @@ import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import * as ROUTES from "../../constants/routes";
-import { useAppContext } from "../../Libs/contextLib";
+import { useAppContext } from "../../libs/contextLib";
 
 const SignOutButton = () => {
   const { userHasAuthenticated } = useAppContext();
@@ -15,6 +15,7 @@ const SignOutButton = () => {
       .then(function () {
         alert("You have been signedOut");
         userHasAuthenticated(false);
+        localStorage.setItem("isAuthenticatedLocal", false);
         history.push(ROUTES.HOME);
       })
       .catch((err) => {

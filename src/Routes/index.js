@@ -1,32 +1,42 @@
 import React from "react";
-import LandingPage from "./HomePage";
+import LandingPage from "./Landing";
 import { Switch, Route } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
+import AuthenticatedRoute from "../components/AuthenticatedRoutes";
+import UnauthenticatedRoute from "../components/UnauthenticatedRoutes";
 import Home from "./Home";
 import SignIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
 import Account from "./Account/index";
 import Admin from "./Admin/index";
+import PasswordForgetPage from "./PasswordForget";
+import ClothesDetails from "./ClothesDetails/index";
 
 const Router = () => (
   <Switch>
     <Route exact path={ROUTES.LANDING}>
       <LandingPage />
     </Route>
-    <Route path={ROUTES.HOME}>
+    <Route exact path={ROUTES.HOME}>
       <Home />
     </Route>
-    <Route path={ROUTES.SIGN_IN}>
+    <UnauthenticatedRoute exact path={ROUTES.SIGN_IN}>
       <SignIn />
-    </Route>
-    <Route path={ROUTES.SIGN_UP}>
+    </UnauthenticatedRoute>
+    <UnauthenticatedRoute exact path={ROUTES.SIGN_UP}>
       <SignUp />
-    </Route>
-    <Route path={ROUTES.ACCOUNT}>
+    </UnauthenticatedRoute>
+    <UnauthenticatedRoute exact path={ROUTES.PASSWORD_FORGET}>
+      <PasswordForgetPage />
+    </UnauthenticatedRoute>
+    <AuthenticatedRoute exact path={ROUTES.ACCOUNT}>
       <Account />
-    </Route>
-    <Route path={ROUTES.ADMIN}>
+    </AuthenticatedRoute>
+    <Route exact path={ROUTES.ADMIN}>
       <Admin />
+    </Route>
+    <Route exact path="/items/:id">
+      <ClothesDetails />
     </Route>
 
     {/* <Route component={NotFound} /> */}

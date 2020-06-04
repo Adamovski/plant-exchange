@@ -1,10 +1,14 @@
 import React from "react";
 import clothes from "../../sampleClothes";
 import ClothesDetails from "./ClothesDetails";
+import { useAppContext } from "../../libs/contextLib";
+import { useParams } from "react-router-dom";
 
 const Details = () => {
-  // console.log([...plants.plant1.images]);
-  return <ClothesDetails cloth={clothes[0]} />;
+  const { id } = useParams();
+  const index = parseInt(id) - 1;
+  console.log(id);
+  return <ClothesDetails cloth={clothes[index]} />;
 };
 
 export default Details;

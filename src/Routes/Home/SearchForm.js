@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 
 export default function SearchForm({ handleInput }) {
@@ -6,11 +6,7 @@ export default function SearchForm({ handleInput }) {
     <Form>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Search for your clothes!</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="shirt"
-          onChange={handleInput}
-        />
+        <Form.Control type="text" placeholder="shirt" onChange={handleInput} />
       </Form.Group>
     </Form>
   );

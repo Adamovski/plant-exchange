@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import firebase from "firebase";
-import SignUpForm from "./SignUpForm";
-import { useAppContext } from "../../Libs/contextLib";
-import * as ROUTES from "../../constants/routes";
 import { useHistory } from "react-router-dom";
-import Wrapper from "../../constants/Wrapper";
+import { useAppContext } from "../../libs/contextLib";
+import { writeUserData } from "../../helpers/firebaseHelpers";
+import SignUpForm from "./SignUpForm";
+import * as ROUTES from "../../constants/routes";
 import styled from "styled-components";
+import Wrapper from "../../constants/Wrapper";
 
 const SignUpWrapper = styled.div`
   padding-top: 2rem;
@@ -30,7 +31,6 @@ const SignUpPage = () => {
   const [inputState, setInputState] = useState(initialInputState);
   // destructure for easy access
   const { passwordOne, passwordTwo, email, username } = inputState;
-
   //declare form validaiton
   const isInvalid =
     passwordOne !== passwordTwo ||
@@ -50,11 +50,15 @@ const SignUpPage = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, passwordOne)
-      .then(() => {
+      .then((authUser) => {
         console.log("success");
-        userHasAuthenticated(true);
+        writeUserData(username, email, authUser.user.uid, firebase);
+        console.log(writeUserData);
+        //set local storage
+        localStorage.setItem("isAuthenticatedLocal", true);
         setInputState({ ...initialInputState });
         history.push(ROUTES.HOME);
+        userHasAuthenticated(true);
       })
       .catch((err) => {
         setInputState({ ...inputState, error: err });

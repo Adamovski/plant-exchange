@@ -7,8 +7,8 @@ const FormWrapper = styled.div`
   width: 40%;
 `;
 
-const SignInForm = ({ inputState, onChange, onSubmit, isInvalid }) => {
-  const { email, password } = inputState;
+const PasswordForgetForm = ({ onSubmit, onChange, isInvalid, inputState }) => {
+  const { email, error } = inputState;
   return (
     <FormWrapper>
       <Form onSubmit={onSubmit}>
@@ -21,22 +21,13 @@ const SignInForm = ({ inputState, onChange, onSubmit, isInvalid }) => {
             value={email}
           />
         </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            onChange={onChange}
-            type="password"
-            placeholder="Password"
-            value={password}
-          />
-        </Form.Group>
         <Button disabled={isInvalid} variant="primary" type="submit">
           Submit
         </Button>
-        {inputState.error && <p>{inputState.error.message}</p>}
+        {error && <p>{error.message}</p>}
       </Form>
     </FormWrapper>
   );
 };
 
-export default SignInForm;
+export default PasswordForgetForm;

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
-import { useAppContext } from "../../Libs/contextLib";
+import { useAppContext } from "../../libs/contextLib";
 import Wrapper from "../../constants/Wrapper";
 import styled from "styled-components";
 import SignInForm from "./SignInForm";
 import SignUpLink from "./SignUpLink";
+import ForgotPasswordLink from "./ForgotPasswordLink";
 
 const SignInWrapper = styled.div`
   padding-top: 2rem;
@@ -38,9 +39,11 @@ const SignInPage = () => {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         console.log("signed in");
-        userHasAuthenticated(true);
+        //set local storage
+        localStorage.setItem("isAuthenticatedLocal", true);
         setInputState({ ...initialInputState });
         history.push(ROUTES.HOME);
+        userHasAuthenticated(true);
       })
       .catch((err) => {
         setInputState({ ...inputState, error: err });
@@ -55,7 +58,7 @@ const SignInPage = () => {
   return (
     <Wrapper>
       <SignInWrapper>
-        <h1>SignUp</h1>
+        <h1>Sign In</h1>
         <SignInForm
           inputState={inputState}
           onChange={onChange}
@@ -63,6 +66,7 @@ const SignInPage = () => {
           isInvalid={isInvalid}
         />
         <SignUpLink />
+        <ForgotPasswordLink />
       </SignInWrapper>
     </Wrapper>
   );

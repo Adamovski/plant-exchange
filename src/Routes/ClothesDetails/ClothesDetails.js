@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Wrapper from "../../constants/Wrapper";
-import ImageSlides from "../../Components/ImageSlides";
+import ImageSlides from "../../components/ImageSlides";
 
 const CardWrapper = styled.div`
   display: flex;

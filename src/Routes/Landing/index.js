@@ -5,7 +5,8 @@ const LandingWrapper = styled.div`
   ${"" /* position: absolute;
   top: 0;
   left: 0; */}
-  background: url(${require("../../assets/images/forest-931706_1920.jpg")});
+  background: rgba(0, 0, 0, .4) url(${require("../../assets/images/suitcase.jpg")});
+  background-blend-mode: darken;
   background-size: cover;
   object-fit: cover;
   width: 100%;
