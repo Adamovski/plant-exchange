@@ -27,7 +27,7 @@ const SignInPage = () => {
   };
   const [inputState, setInputState] = useState(initialInputState);
   //auth control from context
-  const { userHasAuthenticated } = useAppContext();
+  const { userHasAuthenticated, setCurrentUserId } = useAppContext();
   //destructure input state
   const { password, email } = inputState;
   const isInvalid = password === "" || email === "";
@@ -40,8 +40,11 @@ const SignInPage = () => {
       .then(() => {
         console.log("signed in");
         //set local storage
+        const user = firebase.auth().currentUser;
         localStorage.setItem("isAuthenticatedLocal", true);
         setInputState({ ...initialInputState });
+        localStorage.setItem("currentUserId", user.uid);
+        setCurrentUserId(user.uid);
         history.push(ROUTES.HOME);
         userHasAuthenticated(true);
       })

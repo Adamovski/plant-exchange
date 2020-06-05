@@ -11,6 +11,8 @@ import Account from "./Account/index";
 import Admin from "./Admin/index";
 import PasswordForgetPage from "./PasswordForget";
 import ClothesDetails from "./ClothesDetails/index";
+import UserProducts from "./Account/UserProducts";
+import NewProduct from "./Account/AddProduct";
 
 const Router = () => (
   <Switch>
@@ -34,6 +36,12 @@ const Router = () => (
     </AuthenticatedRoute>
     <Route exact path={ROUTES.ADMIN}>
       <Admin />
+    </Route>
+    <Route exact path={"/my-clothes"}>
+      <UserProducts />
+    </Route>
+    <Route exact path={"/add-item"}>
+      <NewProduct />
     </Route>
     <Route exact path="/items/:id">
       <ClothesDetails />

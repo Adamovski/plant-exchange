@@ -1,6 +1,6 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import styled from "styled-components";
 import * as ROUTES from "../../constants/routes";
 import SignOutButton from "./SignOut";
@@ -27,9 +27,15 @@ const NavigationAuth = () => {
             <LinkContainer to={ROUTES.HOME}>
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to={ROUTES.ACCOUNT}>
-              <Nav.Link>Account</Nav.Link>
-            </LinkContainer>
+            <NavDropdown title="Account" id="basic-nav-dropdown">
+              <LinkContainer to={"/my-clothes"}>
+                <NavDropdown.Item>My Clothes</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to={"/add-item"}>
+                <NavDropdown.Item>Add clothes</NavDropdown.Item>
+              </LinkContainer>
+            </NavDropdown>
+
             <LinkContainer to={ROUTES.ADMIN}>
               <Nav.Link>Admin</Nav.Link>
             </LinkContainer>

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import firebase from "firebase";
 import * as ROUTES from "../../constants/routes";
 import styled from "styled-components";
 import {
   writeItemData,
-  uploadFiles,
   uploadImageAsPromise,
 } from "../../helpers/firebaseHelpers";
 import AddProductForm from "./AddProductForm";
 import { useHistory } from "react-router-dom";
+import { useAppContext } from "../../libs/contextLib";
 
 const NewProductWrapper = styled.div`
   margin: 0 auto;
@@ -27,48 +26,51 @@ export default function NewProduct() {
   };
   const history = useHistory();
   const [inputState, setInputState] = useState(initialInputState);
-  const { category, title, desc, images } = inputState;
-  const [imageAsFile, setImageAsFile] = useState("");
   const [imagesArray, setImagesArray] = useState("");
+  const { category, title, desc, images } = inputState;
+  const { currentUserId } = useAppContext();
 
   const onChange = (e) => {
     const { id, value } = e.target;
     setInputState({ ...inputState, [id]: value });
   };
 
+  const collectCategoryValue = (e) => {
+    const { id, value } = e.target;
+    setInputState({ ...inputState, [id]: value.toLowerCase() });
+  };
+
+  //get the image file details and push to array when attached
   const handleImages = (e) => {
-    //get the image
-    let input = e.target.files[0];
-    const image = e.target.files[0];
     const images = [...e.target.files];
     setImagesArray(images);
-    setImageAsFile(image);
     console.log(images);
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    writeItemData(inputState, firebase);
-    setInputState(initialInputState);
-    history.push(ROUTES.HOME);
-    console.log(writeItemData);
-  };
-
-  const upSubmit = (e) => {
-    e.preventDefault();
-    uploadAll();
-  };
-
-  const uploadAll = async () => {
+  //upload images to storage -function is a asynchronous function and returns a promise
+  //the resolution of this promise is the uploadedImages URL ARRAY
+  const uploadImages = async () => {
+    // e.preventDefault();
     //Get files
     const fileUrlArray = [];
     for (let i = 0; i < imagesArray.length; i++) {
       let imageFile = imagesArray[i];
-      await uploadImageAsPromise(firebase, imageFile).then((res) => {
+      await uploadImageAsPromise(imageFile).then((res) => {
         fileUrlArray.push(res);
       });
     }
     setInputState({ ...inputState, images: fileUrlArray });
+    return fileUrlArray;
+  };
+
+  //upload images and then push input to firebase database
+  const onSubmit = (e) => {
+    e.preventDefault();
+    uploadImages().then((res) => {
+      writeItemData(category, title, desc, res, currentUserId);
+    });
+    setInputState(initialInputState);
+    // history.push(ROUTES.HOME);
   };
 
   return (
@@ -79,7 +81,8 @@ export default function NewProduct() {
         inputState={inputState}
         onSubmit={onSubmit}
         handleImages={handleImages}
-        handleUpload={upSubmit}
+        collectCategoryValue={collectCategoryValue}
+        // handleUpload={uploadAll}
       />
     </NewProductWrapper>
   );

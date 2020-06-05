@@ -1,5 +1,8 @@
+import firebase from "firebase";
+import clothes from "../sampleClothes";
+
 //create user in db function
-const writeUserData = (username, email, uid, firebase) => {
+const writeUserData = (username, email, uid) => {
   const user = `users/${uid}`;
   firebase.database().ref(user).set({
     username: username,
@@ -9,16 +12,54 @@ const writeUserData = (username, email, uid, firebase) => {
 
 export { writeUserData };
 
-//creare a item in db function
+const seedDatabase = () => {
+  clothes.map((cloth) => {
+    const { category, title, desc, images } = cloth;
+    let newItemKey = firebase.database().ref().child("items").push().key;
+    const item = `items/${newItemKey}`;
+    firebase
+      .database()
+      .ref(item)
+      .set({
+        id: newItemKey,
+        category: category,
+        title: title,
+        desc: desc,
+        images: images,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+};
 
-const writeItemData = (userInput, firebase) => {
-  let { category, title, desc, images } = userInput;
+export { seedDatabase };
+
+//creare a item in firebase database function
+
+const writeItemData = (category, title, desc, images, uid) => {
   let newItemKey = firebase.database().ref().child("items").push().key;
-  const item = `items/${category}/${newItemKey}`;
+  const item = `items/${newItemKey}`;
   firebase
     .database()
     .ref(item)
     .set({
+      owner: uid,
+      id: newItemKey,
+      category: category,
+      title: title,
+      desc: desc,
+      images: images,
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  const userRef = `users/${uid}/items/${newItemKey}`;
+  firebase
+    .database()
+    .ref(userRef)
+    .set({
+      id: newItemKey,
       category: category,
       title: title,
       desc: desc,
@@ -31,49 +72,14 @@ const writeItemData = (userInput, firebase) => {
 
 export { writeItemData };
 
-const uploadFiles = (firebase, imageAsFile, setState, state) => {
-  const imageUrls = [];
-  const uploadTask = firebase
-    .storage()
-    .ref(`/images/${imageAsFile.name}`)
-    .put(imageAsFile);
-  //initiates the firebase side uploading
-  uploadTask.on(
-    "state_changed",
-    (snapShot) => {
-      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-      let progress = (snapShot.bytesTransferred / snapShot.totalBytes) * 100;
-      console.log(`File ${imageAsFile.name} upload is ${progress}% done`);
-    },
-    (err) => {
-      //catches the errors
-      console.log(err);
-    },
-    () => {
-      // gets the functions from storage refences the image storage in firebase by the children
-      // gets the download url then sets the image from firebase as the value for the imgUrl key:
-      firebase
-        .storage()
-        .ref("images")
-        .child(imageAsFile.name)
-        .getDownloadURL()
-        .then((fireBaseUrl) => {
-          setState([...state, fireBaseUrl]);
-        });
-    }
-  );
-  return imageUrls;
-};
-export { uploadFiles };
-
-async function uploadImageAsPromise(firebase, imageAsFile) {
+async function uploadImageAsPromise(imageAsFile) {
   return new Promise(function (resolve, reject) {
     let storageRef = firebase.storage().ref(`/images/${imageAsFile.name}`);
 
     //Upload file
     let task = storageRef.put(imageAsFile);
 
-    //Update progress bar
+    //Update progress bar in console - figure out how to make loader from this
     task.on(
       "state_changed",
       function progress(snapshot) {
@@ -98,3 +104,132 @@ async function uploadImageAsPromise(firebase, imageAsFile) {
 }
 
 export { uploadImageAsPromise };
+
+const getItemsFromFirebase = (category) => {
+  return firebase
+    .database()
+    .ref(`items/${category}`)
+    .once("value")
+    .then(function (snapshot) {
+      return snapshot.val();
+    });
+};
+
+export { getItemsFromFirebase };
+
+//return an array with all items from  a category
+const getCategory = (category) => {
+  return new Promise((resolve, reject) => {
+    let categoryArray = [];
+    firebase
+      .database()
+      .ref("items")
+      .orderByChild("value")
+      .once(
+        "value",
+        (snapshot) => {
+          snapshot.forEach((snapshot) => {
+            //only get items of specific category
+            if (snapshot.val().category === category) {
+              //add item to array
+              categoryArray.push(snapshot.val());
+            }
+          });
+          //return array as resolution
+          resolve(categoryArray);
+        },
+        (err) => {
+          console.log(err);
+          reject(err);
+        }
+      );
+  });
+};
+
+export { getCategory };
+
+//return an array with all items that belong to user
+const getUserItems = (uid) => {
+  return new Promise((resolve, reject) => {
+    let itemsArray = [];
+    firebase
+      .database()
+      .ref("users")
+      .orderByKey()
+      .equalTo(uid)
+      .once(
+        "value",
+        (snapshot) => {
+          snapshot.forEach((snapshot) => {
+            //only get items of specific category
+            //add item to array
+            // console.log(Object.keys(snapshot.val().items));
+            if (snapshot.val().items) {
+              Object.keys(snapshot.val().items).map((key) => {
+                // console.log(key);
+                itemsArray.push(snapshot.val().items[key]);
+              });
+            }
+          });
+          //return array as resolution
+          resolve(itemsArray);
+        },
+        (err) => {
+          console.log(err);
+          reject(err);
+        }
+      );
+  });
+};
+
+export { getUserItems };
+
+//returns first 10 items
+const getFirst10 = () => {
+  return new Promise((resolve, reject) => {
+    let itemArray = [];
+    firebase
+      .database()
+      .ref("items")
+      .orderByChild("value")
+      .limitToFirst(10)
+      .once(
+        "value",
+        (snapshot) => {
+          snapshot.forEach((snapshot) => {
+            itemArray.push(snapshot.val());
+          });
+          resolve(itemArray);
+        },
+        (err) => {
+          console.log(err);
+          reject(err);
+        }
+      );
+  });
+};
+
+export { getFirst10 };
+
+const getSpecificItem = (itemId) => {
+  return new Promise((resolve, reject) => {
+    let value;
+    firebase
+      .database()
+      .ref(`items/${itemId}`)
+      .orderByChild("value")
+      .on(
+        "value",
+        (snapshot) => {
+          value = snapshot.val();
+        },
+        (err) => {
+          console.log(err);
+          reject(err);
+        }
+      );
+    resolve(value);
+  });
+};
+
+export { getSpecificItem };

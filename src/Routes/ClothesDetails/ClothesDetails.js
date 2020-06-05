@@ -21,14 +21,14 @@ const CardWrapper = styled.div`
 `;
 
 const ClothesDetails = ({ cloth }) => {
-  const { images, desc, longDesc } = cloth;
+  const { images, title, desc } = cloth;
   console.log(images);
   return (
     <Wrapper>
       <CardWrapper>
         <ImageSlides images={images} />
+        <p>{title}</p>
         <p>{desc}</p>
-        <p>{longDesc}</p>
       </CardWrapper>
     </Wrapper>
   );

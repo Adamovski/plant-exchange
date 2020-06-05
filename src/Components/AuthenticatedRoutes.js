@@ -4,7 +4,6 @@ import { useAppContext } from "../libs/contextLib";
 import * as ROUTES from "../constants/routes";
 
 export default function AuthenticatedRoute({ children, ...rest }) {
-  const { pathname, search } = useLocation();
   const { isAuthenticated } = useAppContext();
   return (
     <Route {...rest}>

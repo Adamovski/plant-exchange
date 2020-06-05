@@ -16,6 +16,7 @@ const SignOutButton = () => {
         alert("You have been signedOut");
         userHasAuthenticated(false);
         localStorage.setItem("isAuthenticatedLocal", false);
+        localStorage.setItem("currentUserId", "");
         history.push(ROUTES.HOME);
       })
       .catch((err) => {

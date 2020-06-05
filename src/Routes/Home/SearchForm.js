@@ -5,8 +5,13 @@ export default function SearchForm({ handleInput }) {
   return (
     <Form>
       <Form.Group controlId="formBasicEmail">
-        <Form.Label>Search for your clothes!</Form.Label>
-        <Form.Control type="text" placeholder="shirt" onChange={handleInput} />
+        <Form.Label>Filter</Form.Label>
+        <Form.Control as="select" onChange={handleInput}>
+          <option>Select A Category</option>
+          <option>T-Shirts</option>
+          <option>Shirts</option>
+          <option>Hats</option>
+        </Form.Control>
       </Form.Group>
     </Form>
   );

@@ -1,14 +1,15 @@
 import React from "react";
-import clothes from "../../sampleClothes";
 import ClothesDetails from "./ClothesDetails";
-import { useAppContext } from "../../libs/contextLib";
 import { useParams } from "react-router-dom";
 
 const Details = () => {
+  //using local storage to get the item as useParams has issues when refreshing page or entering via direct link - product wont update if is updated in store unless we reenter via search and filter page
+
   const { id } = useParams();
-  const index = parseInt(id) - 1;
-  console.log(id);
-  return <ClothesDetails cloth={clothes[index]} />;
+  console.log(localStorage.getItem(id));
+  const item = JSON.parse(localStorage.getItem(id));
+
+  return item ? <ClothesDetails cloth={item} /> : <p>nope</p>;
 };
 
 export default Details;

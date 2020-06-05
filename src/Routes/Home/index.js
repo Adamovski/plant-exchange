@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useAppContext } from "../../libs/contextLib";
-import clothes from "../../sampleClothes";
-import ClothCard from "./ClothCard";
+import { getCategory, getFirst10 } from "../../helpers/firebaseHelpers";
+import ClothCard from "../../components/ClothCard";
 import Wrapper from "../../constants/Wrapper";
 import styled from "styled-components";
 import SearchForm from "./SearchForm";
@@ -32,22 +31,37 @@ const ClothDisplay = styled.div`
 
 const Home = () => {
   const [search, setSearch] = useState("");
-  const { setItemId } = useAppContext();
+  const [items, setItems] = useState("");
   const history = useHistory();
 
-  const handleInput = (e) => {
-    let input = e.target.value.toLowerCase();
+  console.log(getFirst10());
+
+  useEffect(() => {
+    const func = async () => {
+      const data = await getFirst10();
+      setItems(data);
+    };
+    func();
+  }, []);
+
+  const handleInput = async (e) => {
+    const input = e.target.value.toLowerCase();
+    const data = await getCategory(input);
+    console.log(data);
+    if (data.length > 0) {
+      setItems(data);
+    }
     setSearch(input);
   };
 
-  const filteredClothes = clothes.filter(
-    (cloth) => cloth.category.indexOf(search) > -1
-  );
-
   const directToDetails = (e) => {
+    e.preventDefault();
     let id = e.target.value;
-    setItemId(id);
-    console.log(id);
+    console.log(items);
+    //using local storage to get the item as useParams has issues when refreshing page or entering via direct link - product wont update if is updated in store unless we reenter via search and filter page
+    items.map((item) =>
+      item.id === id ? localStorage.setItem(id, JSON.stringify(item)) : null
+    );
     history.push(`items/${id}`);
   };
 
@@ -57,14 +71,14 @@ const Home = () => {
       <ClothWrapper>
         <h1>Here are the Clothes</h1>
         <ClothDisplay>
-          {search.length > 0
-            ? Object.keys(
-                clothes.filter((cloth) => cloth.category.indexOf(search) > -1)
-              ).map((key) => (
+          {items
+            ? Object.keys(items).map((key) => (
                 <ClothCard
                   key={key}
-                  index={key}
-                  clothes={filteredClothes[key]}
+                  id={items[key].id}
+                  desc={items[key].desc}
+                  title={items[key].title}
+                  images={items[key].images}
                   directToDetails={directToDetails}
                 />
               ))

@@ -26,14 +26,13 @@ const CardWrapper = styled.div`
   }
 `;
 
-const ClothCard = ({ clothes, directToDetails }) => {
-  const { images, name, desc, id } = clothes;
+const ClothCard = ({ id, desc, title, images, directToDetails }) => {
   return (
     <CardWrapper>
-      <img src={images[0]} alt={name} />
+      <img src={images[0]} alt={title} />
       <p>{desc}</p>
       <Button value={id} onClick={directToDetails} variant="primary">
-        Dowiedź się więcej
+        Find Out More
       </Button>
     </CardWrapper>
   );

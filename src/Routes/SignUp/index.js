@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import firebase from "firebase";
+import firebase, { auth } from "firebase";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
 import { writeUserData } from "../../helpers/firebaseHelpers";
@@ -27,7 +27,7 @@ const SignUpPage = () => {
     error: null,
   };
   //auth control from context
-  const { userHasAuthenticated } = useAppContext();
+  const { userHasAuthenticated, setCurrentUserId } = useAppContext();
   const [inputState, setInputState] = useState(initialInputState);
   // destructure for easy access
   const { passwordOne, passwordTwo, email, username } = inputState;
@@ -56,6 +56,9 @@ const SignUpPage = () => {
         console.log(writeUserData);
         //set local storage
         localStorage.setItem("isAuthenticatedLocal", true);
+        //set current uid
+        setCurrentUserId(authUser.user.uid);
+        localStorage.setItem("currentUserId", authUser.user.uid);
         setInputState({ ...initialInputState });
         history.push(ROUTES.HOME);
         userHasAuthenticated(true);
