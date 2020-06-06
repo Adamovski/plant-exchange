@@ -30,6 +30,7 @@ const seedDatabase = () => {
       .catch((err) => {
         console.log(err);
       });
+    return null;
   });
 };
 
@@ -59,6 +60,7 @@ const writeItemData = (category, title, desc, images, uid) => {
     .database()
     .ref(userRef)
     .set({
+      owner: uid,
       id: newItemKey,
       category: category,
       title: title,
@@ -166,8 +168,8 @@ const getUserItems = (uid) => {
             // console.log(Object.keys(snapshot.val().items));
             if (snapshot.val().items) {
               Object.keys(snapshot.val().items).map((key) => {
-                // console.log(key);
                 itemsArray.push(snapshot.val().items[key]);
+                return itemsArray;
               });
             }
           });
@@ -233,3 +235,28 @@ const getSpecificItem = (itemId) => {
 };
 
 export { getSpecificItem };
+
+const deleteItem = (itemId, userId) => {
+  let ref = firebase
+    .database()
+    .ref(`items/${itemId}`)
+    .remove()
+    .then(function () {
+      console.log("Remove succeeded.");
+    })
+    .catch(function (error) {
+      console.log("Remove failed: " + error.message);
+    });
+  let ref2 = firebase
+    .database()
+    .ref(`users/${userId}/items/${itemId}`)
+    .remove()
+    .then(function () {
+      console.log("Remove succeeded.");
+    })
+    .catch(function (error) {
+      console.log("Remove failed: " + error.message);
+    });
+};
+
+export { deleteItem };

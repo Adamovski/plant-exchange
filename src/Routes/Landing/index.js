@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const LandingWrapper = styled.div`
-  ${"" /* position: absolute;
-  top: 0;
-  left: 0; */}
-  background: rgba(0, 0, 0, .4) url(${require("../../assets/images/suitcase.jpg")});
+  margin-top: -56px;
+  background: rgba(0, 0, 0, 0.4)
+    url(${require("../../assets/images/suitcase.jpg")});
   background-blend-mode: darken;
   background-size: cover;
   object-fit: cover;
@@ -14,13 +13,13 @@ const LandingWrapper = styled.div`
   z-index: -10;
   display: flex;
   justify-content: center;
-  align-items:center;
-  .title{
-      color:white;
+  align-items: center;
+  .title {
+    color: white;
   }
-  h1{
-    text-align:center;
-    }
+  h1 {
+    text-align: center;
+  }
 `;
 
 const LandingPage = () => {

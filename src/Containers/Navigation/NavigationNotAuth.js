@@ -27,6 +27,9 @@ const NavigationNotAuth = () => {
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
             <LinkContainer to={ROUTES.SIGN_IN}>
+              <Nav.Link>About Us</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to={ROUTES.SIGN_IN}>
               <Nav.Link>Sign In</Nav.Link>
             </LinkContainer>
           </Nav>

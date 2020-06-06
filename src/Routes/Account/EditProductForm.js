@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, FormGroup, FormControl, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { seedDatabase } from "../../helpers/firebaseHelpers";
-import ImageSlides from "../../components/ImageSlides";
 
 const FormWrapper = styled.div`
   .desc {
@@ -15,14 +14,12 @@ const FormWrapper = styled.div`
   }
 `;
 
-const AddProductForm = ({
+const EditProductForm = ({
   onSubmit,
   onChange,
   handleImages,
   inputState,
-  handleUpload,
   collectCategoryValue,
-  preview,
 }) => {
   const { title, desc, category, image } = inputState;
 
@@ -73,18 +70,15 @@ const AddProductForm = ({
             multiple
           />
         </FormGroup>
-        <Button variant="primary" type="submit" onClick={preview}>
-          Preview
-        </Button>
-        <Button variant="primary" type="submit" disabled onClick={seedDatabase}>
-          Seed DB
-        </Button>
         <Button variant="primary" type="submit" onClick={onSubmit}>
           Submit
+        </Button>
+        <Button variant="primary" type="submit" onClick={seedDatabase}>
+          Seed DB
         </Button>
       </Form>
     </FormWrapper>
   );
 };
 
-export default AddProductForm;
+export default EditProductForm;

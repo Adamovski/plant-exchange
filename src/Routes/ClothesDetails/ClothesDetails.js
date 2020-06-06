@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Wrapper from "../../constants/Wrapper";
 import ImageSlides from "../../components/ImageSlides";
+import { useParams, useHistory } from "react-router-dom";
+import { useAppContext } from "../../libs/contextLib";
+import { Button } from "react-bootstrap";
+import { deleteItem } from "../../helpers/firebaseHelpers";
+import EditProduct from "../Account/EditProduct";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -21,16 +25,43 @@ const CardWrapper = styled.div`
 `;
 
 const ClothesDetails = ({ cloth }) => {
-  const { images, title, desc } = cloth;
-  console.log(images);
+  const { isAuthenticated, currentUserId } = useAppContext();
+  const { images, title, desc, owner, id } = cloth;
+  const [edit, setEdit] = useState(false);
+  const history = useHistory();
+  const params = useParams();
+  console.log(params);
+  console.log(isAuthenticated);
+  console.log(currentUserId);
+
+  const deleteFromDb = () => {
+    deleteItem(id, currentUserId);
+    localStorage.removeItem(id);
+    history.push("/my-items");
+  };
+
+  const handleEditClick = () => {
+    setEdit(true);
+  };
+
   return (
-    <Wrapper>
-      <CardWrapper>
-        <ImageSlides images={images} />
-        <p>{title}</p>
-        <p>{desc}</p>
-      </CardWrapper>
-    </Wrapper>
+    <>
+      {edit ? (
+        <EditProduct initialInputState={cloth}></EditProduct>
+      ) : (
+        <CardWrapper>
+          <ImageSlides images={images} />
+          <p>{title}</p>
+          <p>{desc}</p>
+          {isAuthenticated && currentUserId === owner ? (
+            <>
+              <Button onClick={handleEditClick}>Edit</Button>
+              <Button onClick={deleteFromDb}>Delete</Button>
+            </>
+          ) : null}
+        </CardWrapper>
+      )}
+    </>
   );
 };
 

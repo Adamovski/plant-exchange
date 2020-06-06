@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import * as ROUTES from "../../constants/routes";
 import styled from "styled-components";
 import {
   writeItemData,
   uploadImageAsPromise,
 } from "../../helpers/firebaseHelpers";
-import AddProductForm from "./AddProductForm";
+import EditProductForm from "./AddProductForm";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
-import PreviewCard from "./PreviewCard";
 
 const NewProductWrapper = styled.div`
   margin: 0 auto;
@@ -24,17 +22,10 @@ const NewProductWrapper = styled.div`
   }
 `;
 
-export default function NewProduct() {
-  const initialInputState = {
-    category: "",
-    title: "",
-    desc: "",
-    images: [],
-  };
+const EditProduct = ({initialInputState}) => {
   const history = useHistory();
   const [inputState, setInputState] = useState(initialInputState);
   const [imagesArray, setImagesArray] = useState("");
-  const [files, setFiles] = useState([]);
   const { category, title, desc, images } = inputState;
   const { currentUserId } = useAppContext();
 
@@ -50,14 +41,9 @@ export default function NewProduct() {
 
   //get the image file details and push to array when attached
   const handleImages = (e) => {
-    const fileArray = e.target.files;
-    const images = [...fileArray];
-    const uploadedFilesPlaceHolder = [];
-    images.map((item) =>
-      uploadedFilesPlaceHolder.push(URL.createObjectURL(item))
-    );
-    setFiles(uploadedFilesPlaceHolder);
+    const images = [...e.target.files];
     setImagesArray(images);
+    console.log(images);
   };
 
   //upload images to storage -function is a asynchronous function and returns a promise
@@ -86,31 +72,19 @@ export default function NewProduct() {
     // history.push(ROUTES.HOME);
   };
 
-  const [loadPreview, setLoadPreview] = useState(false);
-  const preview = (e) => {
-    e.preventDefault();
-    setLoadPreview(true);
-  };
-
   return (
-    <>
-      <NewProductWrapper>
-        <h2>Add new product</h2>
-        <AddProductForm
-          files={files}
-          onChange={onChange}
-          inputState={inputState}
-          onSubmit={onSubmit}
-          handleImages={handleImages}
-          collectCategoryValue={collectCategoryValue}
-          preview={preview}
-          setLoadPreview={setLoadPreview}
-          // handleUpload={uploadAll}
-        />
-      </NewProductWrapper>
-      {loadPreview ? (
-        <PreviewCard inputState={inputState} images={files} />
-      ) : null}
-    </>
+    <NewProductWrapper>
+      <h2>Edit your product</h2>
+      <EditProductForm
+        onChange={onChange}
+        inputState={inputState}
+        onSubmit={onSubmit}
+        handleImages={handleImages}
+        collectCategoryValue={collectCategoryValue}
+        // handleUpload={uploadAll}
+      />
+    </NewProductWrapper>
   );
-}
+};
+
+export default EditProduct;

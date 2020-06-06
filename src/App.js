@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Navigation from "./containers/Navigation/index";
 import Router from "./routes";
-import firebase from "firebase";
 import { AppContext } from "./libs/contextLib";
 import Wrapper from "./constants/Wrapper";
 

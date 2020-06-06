@@ -4,36 +4,44 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Button } from "react-bootstrap";
 
 const CardWrapper = styled.div`
-  text-align:center;
-  height: 500px;
-  width: 100%;
-  border:2px solid black;
-  border-radius: 20px;
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  background: rgb(0, 0, 0, 0.05);
+  justify-content: space-between;
+  height: 250px;
+  width: 180px;
   padding: 1rem;
-  p{
-    height:20%;
-    overflow:hidden;
-    }
-  img {
-    margin:0 auto;
-    display: inline-block;
-    width: 80%;
-    height: 300px;
-    object-fit: cover;
+  cursor: pointer;
+  @media (min-width: 600px) {
+    width: 280px;
+    height: 350px;
+    padding: 1rem;
   }
-  button {
-    margin:0:auto;
+  p {
+    overflow: hidden;
+    margin: 0;
+    font-size: 0.75rem;
+  }
+  img {
+    margin: 0 auto;
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    @media (min-width: 600px) {
+      width: 240px;
+      height: 240px;
+    }
   }
 `;
 
 const ClothCard = ({ id, desc, title, images, directToDetails }) => {
   return (
-    <CardWrapper>
+    <CardWrapper data-id={id} onClick={directToDetails}>
       <img src={images[0]} alt={title} />
       <p>{desc}</p>
-      <Button value={id} onClick={directToDetails} variant="primary">
-        Find Out More
-      </Button>
     </CardWrapper>
   );
 };

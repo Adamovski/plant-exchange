@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import firebase, { auth } from "firebase";
+import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
 import { writeUserData } from "../../helpers/firebaseHelpers";

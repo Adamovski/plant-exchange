@@ -35,9 +35,8 @@ const NavigationAuth = () => {
                 <NavDropdown.Item>Add clothes</NavDropdown.Item>
               </LinkContainer>
             </NavDropdown>
-
             <LinkContainer to={ROUTES.ADMIN}>
-              <Nav.Link>Admin</Nav.Link>
+              <Nav.Link>About Us</Nav.Link>
             </LinkContainer>
             <SignOutButton />
           </Nav>

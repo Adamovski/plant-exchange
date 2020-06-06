@@ -77,7 +77,9 @@ const ImageSlides = ({ images }) => {
     }
     .images {
       display: grid;
-      grid-template-columns: repeat(${images.length}, 1fr);
+      ${images.length > 1
+        ? `grid-template-columns: repeat(2, 1fr)`
+        : `grid-template-columns: 1fr`}
     }
   `;
 
@@ -114,11 +116,7 @@ const ImageSlides = ({ images }) => {
         <PrevBtn className="fas fa-arrow-left" onClick={backClick}></PrevBtn>
         <div className="images">
           {newImageArray.map((item, i) => {
-            if (i === index) {
-              return (
-                <Img src={item} data-index={i} key={i} className="active" />
-              );
-            } else if (index < i && i < index + images.length) {
+            if ((i === index) | (index < i) && i < index + 2) {
               return <Img src={item} data-index={i} key={i} />;
             }
           })}

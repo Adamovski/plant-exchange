@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect, useLocation } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { useAppContext } from "../libs/contextLib";
 import * as ROUTES from "../constants/routes";
 

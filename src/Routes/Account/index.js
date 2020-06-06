@@ -4,13 +4,10 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Button } from "react-bootstrap";
 import styled from "styled-components";
 
-const AccountWrapper=styled.div`
-`
-
 export default function Account() {
   return (
     <>
-    <img></img>
+      <img></img>
       <LinkContainer to="/mydetails">
         <Button variant="primary" type="submit">
           View your items!
