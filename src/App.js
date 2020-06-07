@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import Navigation from "./containers/Navigation/index";
 import Router from "./routes";
 import { AppContext } from "./libs/contextLib";
-import { Wrapper } from "./constants/stylingElements";
+import { Wrapper, Background } from "./constants/stylingElements";
 import Footer from "./components/Footer";
 
 function App() {
@@ -31,7 +30,9 @@ function App() {
       >
         <Navigation />
         <Wrapper>
-          <Router />
+          <Background>
+            <Router />
+          </Background>
         </Wrapper>
         <Footer />
       </AppContext.Provider>

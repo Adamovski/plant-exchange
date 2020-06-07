@@ -9,6 +9,7 @@ const FooterWrapper = styled.div`
   width: 100%;
   background-color: rgba(0, 0, 0, 0.9);
   color: white;
+  margin-top: -2rem;
   padding-top: 40px;
   padding-bottom: 15px;
   padding-left: 35px;
@@ -119,7 +120,7 @@ const Footer = () => {
           <div />
         </div>
         <div className="tradeMark">
-          © 2018 {companyInformation.companyName}, Inc. All rights reserved
+          © 2020 {companyInformation.companyName}, Inc. All rights reserved
         </div>
       </FooterWrapper>
     </React.Fragment>

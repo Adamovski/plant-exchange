@@ -7,7 +7,6 @@ import styled from "styled-components";
 export default function Account() {
   return (
     <>
-      <img></img>
       <LinkContainer to="/mydetails">
         <Button variant="primary" type="submit">
           View your items!

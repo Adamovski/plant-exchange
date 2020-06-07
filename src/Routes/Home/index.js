@@ -6,7 +6,13 @@ import styled from "styled-components";
 import SearchForm from "./SearchForm";
 
 const ClothWrapper = styled.div`
+  width: 95%;
+  background: rgba(256, 256, 256, 0.9);
+  border-radius: 20px;
+  margin-top: 5.5rem;
+  margin-bottom: 2rem;
   padding-top: 2rem;
+  padding-bottom: 2rem;
   overfow: hidden;
   display: grid;
   grid-template-columns: 1fr minmax(auto, 570px) minmax(auto, 570px) 1fr;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const CardWrapper = styled.div`
   text-align: center;
+  border-radius: 20px;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 2rem;

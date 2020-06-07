@@ -5,7 +5,7 @@ import { Button } from "../../constants/stylingElements";
 
 const FormWrapper = styled.div`
   margin: 2rem auto;
-  width: 40%;
+  width: 80%;
 `;
 
 const SignInForm = ({ inputState, onChange, onSubmit, isInvalid }) => {

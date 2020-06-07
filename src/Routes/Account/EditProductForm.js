@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, FormGroup, FormControl, Button } from "react-bootstrap";
+import { Form, FormGroup, FormControl } from "react-bootstrap";
+import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
 import { seedDatabase } from "../../helpers/firebaseHelpers";
 
@@ -11,6 +12,10 @@ const FormWrapper = styled.div`
     }
   }
   .upload {
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-around;
   }
 `;
 
@@ -70,15 +75,17 @@ const EditProductForm = ({
             multiple
           />
         </FormGroup>
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-        <Button disabled variant="primary" type="submit" onClick={seedDatabase}>
-          Seed DB
-        </Button>
-        <Button variant="primary" type="submit" onClick={preview}>
-          Preview
-        </Button>
+        <div className="buttons">
+          <Button variant type="submit">
+            Submit
+          </Button>
+          <Button disabled type="submit" onClick={seedDatabase}>
+            Seed DB
+          </Button>
+          <Button type="submit" onClick={preview}>
+            Preview
+          </Button>
+        </div>
       </Form>
     </FormWrapper>
   );

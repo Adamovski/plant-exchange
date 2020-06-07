@@ -9,7 +9,14 @@ import SignUpLink from "./SignUpLink";
 import ForgotPasswordLink from "./ForgotPasswordLink";
 
 const SignInWrapper = styled.div`
-  padding-top: 2rem;
+  margin: 0 auto;
+  margin-top: 56px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 400px;
+  max-width: 80%;
+  background: white;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;

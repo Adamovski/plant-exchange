@@ -39,6 +39,19 @@ const UserProducts = () => {
   const [userItems, setUserItems] = useState("");
   const { currentUserId } = useAppContext();
 
+  const UserWrapper = styled.div`
+    width: 95%;
+    min-height: 80vh;
+    background: rgba(256, 256, 256, 0.9);
+    border-radius: 20px;
+    margin-top: 5.5rem;
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+    ${!userItems | (userItems.length === 0)
+      ? `display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;`
+      : `display:static`}
+  `;
+
   useEffect(() => {
     const func = async () => {
       const myItems = await getUserItems(currentUserId);
@@ -59,7 +72,7 @@ const UserProducts = () => {
   };
 
   return (
-    <>
+    <UserWrapper>
       {userItems && userItems.length > 0 ? (
         <>
           <ClothWrapper>
@@ -79,7 +92,7 @@ const UserProducts = () => {
           </LinkContainer>
         </ItemWrapper>
       )}
-    </>
+    </UserWrapper>
   );
 };
 

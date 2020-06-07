@@ -9,18 +9,16 @@ import EditProductForm from "./EditProductForm";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
 import PreviewCard from "./PreviewCard";
-import DragAndDrop from "../../components/DragAndDrop";
-import FileList from "../../components/FileList";
 
 const NewProductWrapper = styled.div`
   background: white;
   position: absolute;
-  top: 56px;
+  border-radius: 20px;
+  top: 20rem;
   left: 50%;
-  top: 50%;
+  height: 85vh;
   transform: translate(-50%, -50%);
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem 2rem;
   width: 500px;
   max-width: 95%;
   h2 {
@@ -31,12 +29,14 @@ const NewProductWrapper = styled.div`
   }
 `;
 
-const EditProduct = ({ initialInputState }) => {
+const EditProduct = ({ initialInputState, setEdit }) => {
   const history = useHistory();
   const [inputState, setInputState] = useState(initialInputState);
   const { category, title, desc, images } = inputState;
   const [imagesArray, setImagesArray] = useState(images);
   const { currentUserId } = useAppContext();
+  const [files, setFiles] = useState([]);
+  const [filesUploaded, setFilesUploaded] = useState(false);
   const [loadPreview, setLoadPreview] = useState(false);
   const validate = category && title && desc && imagesArray;
 
@@ -54,31 +54,38 @@ const EditProduct = ({ initialInputState }) => {
 
   //get the image file details and push to array when attached
   const handleImages = (e) => {
-    const images = [...e.target.files];
+    const fileArray = e.target.files;
+    const images = [...fileArray];
+    const uploadedFilesPlaceHolder = [];
+    images.map((item) =>
+      uploadedFilesPlaceHolder.push(URL.createObjectURL(item))
+    );
+    setFiles(uploadedFilesPlaceHolder);
+    setFilesUploaded(true);
     setImagesArray(images);
-    console.log(images);
   };
 
   //upload images to storage -function is a asynchronous function and returns a promise
   //the resolution of this promise is the uploadedImages URL ARRAY
   const uploadImages = async () => {
-    // e.preventDefault();
-    //Get files
+    console.log(imagesArray);
     const fileUrlArray = [];
-    for (let i = 0; i < imagesArray.length; i++) {
-      let imageFile = imagesArray[i];
-      await uploadImageAsPromise(imageFile).then((res) => {
-        fileUrlArray.push(res);
-      });
+    if (filesUploaded) {
+      for (let i = 0; i < imagesArray.length; i++) {
+        let imageFile = imagesArray[i];
+        await uploadImageAsPromise(imageFile).then((res) => {
+          fileUrlArray.push(res);
+        });
+      }
+      setInputState({ ...inputState, images: fileUrlArray });
     }
-
     return fileUrlArray;
   };
 
   //upload images and then push input to firebase database
   const onSubmit = (e) => {
     let updatedImages = images;
-    console.log(images);
+    // console.log(images);
     e.preventDefault();
     uploadImages()
       .then((res) => {
@@ -93,6 +100,20 @@ const EditProduct = ({ initialInputState }) => {
           updatedImages,
           currentUserId
         );
+        console.log("edit complete");
+        localStorage.setItem(
+          initialInputState.id,
+          JSON.stringify({
+            id: initialInputState.id,
+            category: category,
+            title: title,
+            desc: desc,
+            images: updatedImages,
+            owner: currentUserId,
+          })
+        );
+        history.push(`/items/${initialInputState.id}`);
+        setEdit(false);
       });
   };
 

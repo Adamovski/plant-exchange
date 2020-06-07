@@ -12,10 +12,14 @@ import PreviewCard from "./PreviewCard";
 
 const NewProductWrapper = styled.div`
   margin: 0 auto;
+  margin-top: 56px;
   padding-top: 1rem;
   padding-bottom: 1rem;
   width: 400px;
   max-width: 80%;
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
   h2 {
     font-size: 1.75rem;
   }

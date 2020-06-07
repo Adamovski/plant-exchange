@@ -36,7 +36,6 @@ const NextBtn = styled(Btn)`
 
 const ImageSlides = ({ images }) => {
   const SlideWrapper = styled.div`
-    ${"" /* margin-top: 25vh; */}
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,7 +50,7 @@ const ImageSlides = ({ images }) => {
       overflow: hidden;
       flex-wrap: none;
       width: 200px;
-      @media (min-width: 500px) {
+      @media (min-width: 600px) {
         width: auto;
         display: grid;
         overflow: visible;
