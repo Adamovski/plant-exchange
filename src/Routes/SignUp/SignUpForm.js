@@ -1,10 +1,12 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
 
 const FormWrapper = styled.div`
   margin: 2rem auto;
-  width: 40%;
+  width: 80%;
+  max-width: 400px;
 `;
 
 const SignUpForm = ({ inputState, onChange, onSubmit, isInvalid }) => {
@@ -43,8 +45,8 @@ const SignUpForm = ({ inputState, onChange, onSubmit, isInvalid }) => {
             placeholder="Password"
           />
         </Form.Group>
-        <Button disabled={isInvalid} variant="primary" type="submit">
-          Submit
+        <Button disabled={isInvalid} type="submit">
+          Sign Up
         </Button>
         {inputState.error && <p>{inputState.error.message}</p>}
       </Form>

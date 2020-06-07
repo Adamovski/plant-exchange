@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, FormGroup, FormControl, Button } from "react-bootstrap";
+import { Form, FormGroup, FormControl } from "react-bootstrap";
+import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
 import { seedDatabase } from "../../helpers/firebaseHelpers";
 import ImageSlides from "../../components/ImageSlides";
@@ -13,6 +14,10 @@ const FormWrapper = styled.div`
   }
   .upload {
   }
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 const AddProductForm = ({
@@ -24,11 +29,11 @@ const AddProductForm = ({
   collectCategoryValue,
   preview,
 }) => {
-  const { title, desc, category, image } = inputState;
+  const { title, desc } = inputState;
 
   return (
     <FormWrapper>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Group controlId="category">
           <Form.Label>Category</Form.Label>
           <Form.Control
@@ -73,15 +78,14 @@ const AddProductForm = ({
             multiple
           />
         </FormGroup>
-        <Button variant="primary" type="submit" onClick={preview}>
-          Preview
-        </Button>
-        <Button variant="primary" type="submit" disabled onClick={seedDatabase}>
-          Seed DB
-        </Button>
-        <Button variant="primary" type="submit" onClick={onSubmit}>
-          Submit
-        </Button>
+        <div className="buttons">
+          <Button variant="primary" type="submit" onClick={preview}>
+            Preview
+          </Button>
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </div>
       </Form>
     </FormWrapper>
   );

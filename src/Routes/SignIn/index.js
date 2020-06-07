@@ -3,7 +3,6 @@ import firebase from "firebase";
 import { useHistory } from "react-router-dom";
 import * as ROUTES from "../../constants/routes";
 import { useAppContext } from "../../libs/contextLib";
-import Wrapper from "../../constants/Wrapper";
 import styled from "styled-components";
 import SignInForm from "./SignInForm";
 import SignUpLink from "./SignUpLink";
@@ -59,19 +58,17 @@ const SignInPage = () => {
   };
 
   return (
-    <Wrapper>
-      <SignInWrapper>
-        <h1>Sign In</h1>
-        <SignInForm
-          inputState={inputState}
-          onChange={onChange}
-          onSubmit={logIn}
-          isInvalid={isInvalid}
-        />
-        <SignUpLink />
-        <ForgotPasswordLink />
-      </SignInWrapper>
-    </Wrapper>
+    <SignInWrapper>
+      <h1>Sign In</h1>
+      <SignInForm
+        inputState={inputState}
+        onChange={onChange}
+        onSubmit={logIn}
+        isInvalid={isInvalid}
+      />
+      <SignUpLink />
+      <ForgotPasswordLink />
+    </SignInWrapper>
   );
 };
 

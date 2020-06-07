@@ -7,35 +7,6 @@ const Img = styled.img`
   width: 100%;
   flex: 1;
   height: auto;
-  &.active {
-    opacity: 0.3;
-  }
-  &.fade-appear {
-    opacity: 0;
-    z-index: 1;
-  }
-  &.fade-appear.fade-appear-active {
-    opacity: 1;
-    transition: opacity 250ms linear;
-  }
-  &.fade-enter {
-    opacity: 0;
-    z-index: 1;
-  }
-  &.fade-enter.fade-enter-active {
-    opacity: 1;
-    transition: opacity 250ms linear 250ms;
-  }
-  &.fade-exit {
-    opacity: 1;
-  }
-  &.fade-exit.fade-exit-active {
-    opacity: 0;
-    transition: opacity 250ms linear;
-  }
-  &.fade-exit-done {
-    opacity: 0;
-  }
 `;
 
 const Btn = styled.button`
@@ -76,10 +47,18 @@ const ImageSlides = ({ images }) => {
       justify-content: space-between;
     }
     .images {
-      display: grid;
-      ${images.length > 1
-        ? `grid-template-columns: repeat(2, 1fr)`
-        : `grid-template-columns: 1fr`}
+      display: flex;
+      overflow: hidden;
+      flex-wrap: none;
+      width: 200px;
+      @media (min-width: 500px) {
+        width: auto;
+        display: grid;
+        overflow: visible;
+        ${images.length > 1
+          ? `grid-template-columns: repeat(2, 1fr)`
+          : `grid-template-columns: 1fr`}
+      }
     }
   `;
 

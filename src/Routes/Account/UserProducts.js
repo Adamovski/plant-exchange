@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Button } from "react-bootstrap";
+import { Button } from "../../constants/stylingElements";
 import { useAppContext } from "../../libs/contextLib";
 import { getUserItems } from "../../helpers/firebaseHelpers";
 import styled from "styled-components";

@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { LinkContainer } from "react-router-bootstrap";
-import { Button } from "react-bootstrap";
 
 const CardWrapper = styled.div`
   text-align: center;

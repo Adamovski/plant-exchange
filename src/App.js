@@ -3,7 +3,8 @@ import "./App.css";
 import Navigation from "./containers/Navigation/index";
 import Router from "./routes";
 import { AppContext } from "./libs/contextLib";
-import Wrapper from "./constants/Wrapper";
+import { Wrapper } from "./constants/stylingElements";
+import Footer from "./components/Footer";
 
 function App() {
   //declare authentication state
@@ -32,6 +33,7 @@ function App() {
         <Wrapper>
           <Router />
         </Wrapper>
+        <Footer />
       </AppContext.Provider>
     </>
   );

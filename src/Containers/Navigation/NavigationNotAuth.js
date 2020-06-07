@@ -11,6 +11,12 @@ const NavbarWrapper = styled.div`
     left: 0;
     width: 100%;
   }
+  .navbar-toggler {
+    border: none;
+    &:focus {
+      outline: none;
+    }
+  }
 `;
 
 const NavigationNotAuth = () => {

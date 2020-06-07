@@ -1,5 +1,6 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
 
 const FormWrapper = styled.div`

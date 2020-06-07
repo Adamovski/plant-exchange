@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const LandingWrapper = styled.div`
   margin-top: -56px;
+  margin-bottom: -2rem;
   background: rgba(0, 0, 0, 0.4)
     url(${require("../../assets/images/suitcase.jpg")});
   background-blend-mode: darken;

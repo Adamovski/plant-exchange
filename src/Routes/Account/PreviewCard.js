@@ -29,7 +29,7 @@ const CardWrapper = styled.div`
   }
 `;
 
-const PreviewCard = ({ images, inputState }) => {
+const PreviewCard = ({ images, inputState, closePreview }) => {
   const { title, desc } = inputState;
   return (
     <Popup>
@@ -37,6 +37,7 @@ const PreviewCard = ({ images, inputState }) => {
         <ImageSlides images={images} />
         <p>{title}</p>
         <p>{desc}</p>
+        <button onClick={closePreview}>Close</button>
       </CardWrapper>
     </Popup>
   );

@@ -74,9 +74,32 @@ const writeItemData = (category, title, desc, images, uid) => {
 
 export { writeItemData };
 
+const editItemData = (itemId, category, title, desc, images, uid) => {
+  // A post entry.
+  let itemData = {
+    owner: uid,
+    id: itemId,
+    category: category,
+    title: title,
+    desc: desc,
+    images: images,
+    // images: images,
+  };
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  let updates = {};
+  updates[`items/${itemId}`] = itemData;
+  updates[`users/${uid}/items/${itemId}`] = itemData;
+
+  return firebase.database().ref().update(updates);
+};
+
+export { editItemData };
+
 async function uploadImageAsPromise(imageAsFile) {
+  let newItemKey = firebase.database().ref().child("items").push().key;
   return new Promise(function (resolve, reject) {
-    let storageRef = firebase.storage().ref(`/images/${imageAsFile.name}`);
+    let storageRef = firebase.storage().ref(`/images/${newItemKey}`);
 
     //Upload file
     let task = storageRef.put(imageAsFile);
@@ -97,7 +120,7 @@ async function uploadImageAsPromise(imageAsFile) {
         let downloadURL = firebase
           .storage()
           .ref("images")
-          .child(imageAsFile.name)
+          .child(newItemKey)
           .getDownloadURL();
         resolve(downloadURL);
       }

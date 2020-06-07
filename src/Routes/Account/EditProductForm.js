@@ -20,12 +20,13 @@ const EditProductForm = ({
   handleImages,
   inputState,
   collectCategoryValue,
+  preview,
 }) => {
-  const { title, desc, category, image } = inputState;
+  const { title, desc } = inputState;
 
   return (
     <FormWrapper>
-      <Form>
+      <Form onSubmit={onSubmit}>
         <Form.Group controlId="category">
           <Form.Label>Category</Form.Label>
           <Form.Control
@@ -64,17 +65,19 @@ const EditProductForm = ({
         <FormGroup className="images" controlId="file">
           <FormControl
             className="upload"
-            required
             onChange={handleImages}
             type="file"
             multiple
           />
         </FormGroup>
-        <Button variant="primary" type="submit" onClick={onSubmit}>
+        <Button variant="primary" type="submit">
           Submit
         </Button>
-        <Button variant="primary" type="submit" onClick={seedDatabase}>
+        <Button disabled variant="primary" type="submit" onClick={seedDatabase}>
           Seed DB
+        </Button>
+        <Button variant="primary" type="submit" onClick={preview}>
+          Preview
         </Button>
       </Form>
     </FormWrapper>

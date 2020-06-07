@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { getCategory, getFirst10 } from "../../helpers/firebaseHelpers";
 import ClothCard from "../../components/ClothCard";
-import Wrapper from "../../constants/Wrapper";
 import styled from "styled-components";
 import SearchForm from "./SearchForm";
 

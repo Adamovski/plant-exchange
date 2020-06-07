@@ -24,7 +24,7 @@ const NewProductWrapper = styled.div`
   }
 `;
 
-export default function NewProduct() {
+const NewProduct = () => {
   const initialInputState = {
     category: "",
     title: "",
@@ -34,15 +34,19 @@ export default function NewProduct() {
   const history = useHistory();
   const [inputState, setInputState] = useState(initialInputState);
   const [imagesArray, setImagesArray] = useState("");
+  const [loadPreview, setLoadPreview] = useState(false);
   const [files, setFiles] = useState([]);
-  const { category, title, desc, images } = inputState;
+  const { category, title, desc } = inputState;
   const { currentUserId } = useAppContext();
+  const validate = category && title && desc && imagesArray;
 
+  //collect input values
   const onChange = (e) => {
     const { id, value } = e.target;
     setInputState({ ...inputState, [id]: value });
   };
 
+  //get the category value
   const collectCategoryValue = (e) => {
     const { id, value } = e.target;
     setInputState({ ...inputState, [id]: value.toLowerCase() });
@@ -63,7 +67,6 @@ export default function NewProduct() {
   //upload images to storage -function is a asynchronous function and returns a promise
   //the resolution of this promise is the uploadedImages URL ARRAY
   const uploadImages = async () => {
-    // e.preventDefault();
     //Get files
     const fileUrlArray = [];
     for (let i = 0; i < imagesArray.length; i++) {
@@ -78,18 +81,29 @@ export default function NewProduct() {
 
   //upload images and then push input to firebase database
   const onSubmit = (e) => {
+    e.stopPropagation();
     e.preventDefault();
-    uploadImages().then((res) => {
-      writeItemData(category, title, desc, res, currentUserId);
-    });
-    setInputState(initialInputState);
+    if (validate) {
+      uploadImages().then((res) => {
+        writeItemData(category, title, desc, res, currentUserId);
+      });
+      setInputState(initialInputState);
+    } else alert("You forgot something");
     // history.push(ROUTES.HOME);
   };
 
-  const [loadPreview, setLoadPreview] = useState(false);
-  const preview = (e) => {
+  const openPreview = (e) => {
+    e.stopPropagation();
     e.preventDefault();
-    setLoadPreview(true);
+    if (validate) {
+      setLoadPreview(true);
+    } else alert("You forgot something");
+  };
+
+  const closePreview = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setLoadPreview(false);
   };
 
   return (
@@ -103,14 +117,20 @@ export default function NewProduct() {
           onSubmit={onSubmit}
           handleImages={handleImages}
           collectCategoryValue={collectCategoryValue}
-          preview={preview}
+          preview={openPreview}
           setLoadPreview={setLoadPreview}
           // handleUpload={uploadAll}
         />
       </NewProductWrapper>
       {loadPreview ? (
-        <PreviewCard inputState={inputState} images={files} />
+        <PreviewCard
+          inputState={inputState}
+          images={files}
+          closePreview={closePreview}
+        />
       ) : null}
     </>
   );
-}
+};
+
+export default NewProduct;

@@ -6,7 +6,6 @@ import { writeUserData } from "../../helpers/firebaseHelpers";
 import SignUpForm from "./SignUpForm";
 import * as ROUTES from "../../constants/routes";
 import styled from "styled-components";
-import Wrapper from "../../constants/Wrapper";
 
 const SignUpWrapper = styled.div`
   padding-top: 2rem;
@@ -69,17 +68,15 @@ const SignUpPage = () => {
   };
 
   return (
-    <Wrapper>
-      <SignUpWrapper>
-        <h1>SignUp</h1>
-        <SignUpForm
-          inputState={inputState}
-          onChange={onChange}
-          onSubmit={signUp}
-          isInvaild={isInvalid}
-        />
-      </SignUpWrapper>
-    </Wrapper>
+    <SignUpWrapper>
+      <h2>Sign Up</h2>
+      <SignUpForm
+        inputState={inputState}
+        onChange={onChange}
+        onSubmit={signUp}
+        isInvaild={isInvalid}
+      />
+    </SignUpWrapper>
   );
 };
 

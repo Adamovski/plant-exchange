@@ -30,6 +30,7 @@ const ClothGrid = ({ items }) => {
     );
     history.push(`items/${id}`);
   };
+
   return (
     <ClothDisplay>
       {items

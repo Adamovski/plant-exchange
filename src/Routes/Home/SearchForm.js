@@ -5,6 +5,11 @@ import styled from "styled-components";
 const FormWrapper = styled.div`
   .select {
     font-size: 10px;
+    &:focus,
+    &:active {
+      border: 1px solid #ced4da;
+      box-shadow: none;
+    }
   }
 `;
 

@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import * as ROUTES from "../../constants/routes";
 import { useAppContext } from "../../libs/contextLib";
 
-const SignOutButton = () => {
+const SignOutSpan = () => {
   const { userHasAuthenticated } = useAppContext();
   const history = useHistory();
   const signOut = () => {
@@ -25,10 +25,10 @@ const SignOutButton = () => {
   };
 
   return (
-    <Button variant="primary" onClick={signOut}>
-      Sign Out
-    </Button>
+    <>
+      <span onClick={signOut}>Sign Out</span>
+    </>
   );
 };
 
-export default SignOutButton;
+export default SignOutSpan;

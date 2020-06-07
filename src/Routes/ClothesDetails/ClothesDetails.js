@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ImageSlides from "../../components/ImageSlides";
 import { useParams, useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
-import { Button } from "react-bootstrap";
+import { Button } from "../../constants/stylingElements";
 import { deleteItem } from "../../helpers/firebaseHelpers";
 import EditProduct from "../Account/EditProduct";
 
@@ -40,27 +40,31 @@ const ClothesDetails = ({ cloth }) => {
     history.push("/my-items");
   };
 
-  const handleEditClick = () => {
+  const handleEditClick = (e) => {
+    e.stopPropagation();
     setEdit(true);
+  };
+
+  const handleEditExit = (e) => {
+    setEdit(false);
   };
 
   return (
     <>
+      <CardWrapper onClick={handleEditExit}>
+        <ImageSlides images={images} />
+        <p>{title}</p>
+        <p>{desc}</p>
+        {isAuthenticated && currentUserId === owner ? (
+          <>
+            <Button onClick={handleEditClick}>Edit</Button>
+            <Button onClick={deleteFromDb}>Delete</Button>
+          </>
+        ) : null}
+      </CardWrapper>
       {edit ? (
-        <EditProduct initialInputState={cloth}></EditProduct>
-      ) : (
-        <CardWrapper>
-          <ImageSlides images={images} />
-          <p>{title}</p>
-          <p>{desc}</p>
-          {isAuthenticated && currentUserId === owner ? (
-            <>
-              <Button onClick={handleEditClick}>Edit</Button>
-              <Button onClick={deleteFromDb}>Delete</Button>
-            </>
-          ) : null}
-        </CardWrapper>
-      )}
+        <EditProduct images={images} initialInputState={cloth}></EditProduct>
+      ) : null}
     </>
   );
 };

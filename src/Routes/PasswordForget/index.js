@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
-import Wrapper from "../../constants/Wrapper";
 import PasswordForgetForm from "./PasswordForgetForm";
 import styled from "styled-components";
 
@@ -44,17 +43,15 @@ const PasswordForgetPage = () => {
   };
 
   return (
-    <Wrapper>
-      <ForgotonWrapper>
-        <h2>Reset your password</h2>
-        <PasswordForgetForm
-          inputState={inputState}
-          onChange={onChange}
-          isInvalid={isInvalid}
-          onSubmit={sendResetEmail}
-        />
-      </ForgotonWrapper>
-    </Wrapper>
+    <ForgotonWrapper>
+      <h2>Reset your password</h2>
+      <PasswordForgetForm
+        inputState={inputState}
+        onChange={onChange}
+        isInvalid={isInvalid}
+        onSubmit={sendResetEmail}
+      />
+    </ForgotonWrapper>
   );
 };
 
