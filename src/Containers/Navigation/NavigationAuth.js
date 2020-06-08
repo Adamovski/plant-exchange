@@ -61,7 +61,7 @@ const NavigationAuth = () => {
             <LinkContainer to={ROUTES.HOME}>
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
-            <LinkContainer to={ROUTES.ADMIN}>
+            <LinkContainer to={ROUTES.ABOUT_US}>
               <Nav.Link>About Us</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Account" id="basic-nav-dropdown">

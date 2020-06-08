@@ -1,7 +1,6 @@
 import React from "react";
 import firebase from "firebase";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import * as ROUTES from "../../constants/routes";
 import { useAppContext } from "../../libs/contextLib";
 
@@ -16,7 +15,7 @@ const SignOutSpan = () => {
         alert("You have been signedOut");
         userHasAuthenticated(false);
         localStorage.setItem("isAuthenticatedLocal", false);
-        localStorage.setItem("currentUserId", "");
+        localStorage.removeItem("currentUserId");
         history.push(ROUTES.HOME);
       })
       .catch((err) => {

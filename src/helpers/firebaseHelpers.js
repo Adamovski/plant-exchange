@@ -260,7 +260,7 @@ const getSpecificItem = (itemId) => {
 export { getSpecificItem };
 
 const deleteItem = (itemId, userId) => {
-  let ref = firebase
+  firebase
     .database()
     .ref(`items/${itemId}`)
     .remove()
@@ -270,7 +270,7 @@ const deleteItem = (itemId, userId) => {
     .catch(function (error) {
       console.log("Remove failed: " + error.message);
     });
-  let ref2 = firebase
+  firebase
     .database()
     .ref(`users/${userId}/items/${itemId}`)
     .remove()

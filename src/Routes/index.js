@@ -7,12 +7,11 @@ import UnauthenticatedRoute from "../components/UnauthenticatedRoutes";
 import Home from "./Home";
 import SignIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
-import Account from "./Account/index";
-import Admin from "./Admin/index";
 import PasswordForgetPage from "./PasswordForget";
 import ClothesDetails from "./ClothesDetails/index";
 import UserProducts from "./Account/UserProducts";
 import NewProduct from "./Account/AddProduct";
+import AboutUs from "./AboutUs/index";
 
 const Router = () => (
   <Switch>
@@ -21,6 +20,9 @@ const Router = () => (
     </Route>
     <Route exact path={ROUTES.HOME}>
       <Home />
+    </Route>
+    <Route exact path={ROUTES.ABOUT_US}>
+      <AboutUs />
     </Route>
     <UnauthenticatedRoute exact path={ROUTES.SIGN_IN}>
       <SignIn />
@@ -31,19 +33,13 @@ const Router = () => (
     <UnauthenticatedRoute exact path={ROUTES.PASSWORD_FORGET}>
       <PasswordForgetPage />
     </UnauthenticatedRoute>
-    <AuthenticatedRoute exact path={ROUTES.ACCOUNT}>
-      <Account />
-    </AuthenticatedRoute>
-    <Route exact path={ROUTES.ADMIN}>
-      <Admin />
-    </Route>
-    <Route exact path={"/my-clothes"}>
+    <AuthenticatedRoute exact path={ROUTES.MY_CLOTHES}>
       <UserProducts />
-    </Route>
-    <Route exact path={"/add-item"}>
+    </AuthenticatedRoute>
+    <AuthenticatedRoute exact path={ROUTES.ADD_ITEM}>
       <NewProduct />
-    </Route>
-    <Route exact path="/items/:id">
+    </AuthenticatedRoute>
+    <Route exact path={ROUTES.CLOTHES_DETAILS}>
       <ClothesDetails />
     </Route>
 

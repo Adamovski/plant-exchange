@@ -8,11 +8,23 @@ import * as ROUTES from "../../constants/routes";
 import styled from "styled-components";
 
 const SignUpWrapper = styled.div`
+  height: 80vh;
+  margin: 0 auto;
+  margin-top: 56px;
   padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 400px;
+  max-width: 80%;
+  background: white;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  h2 {
+    color: black;
+    font-size: 1.75rem;
+  }
 `;
 
 const SignUpPage = () => {
@@ -28,6 +40,7 @@ const SignUpPage = () => {
   //auth control from context
   const { userHasAuthenticated, setCurrentUserId } = useAppContext();
   const [inputState, setInputState] = useState(initialInputState);
+  const [isLoading, setIsLoading] = useState(false);
   // destructure for easy access
   const { passwordOne, passwordTwo, email, username } = inputState;
   //declare form validaiton
@@ -46,6 +59,7 @@ const SignUpPage = () => {
   //create new user function
   const signUp = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, passwordOne)
@@ -75,6 +89,7 @@ const SignUpPage = () => {
         onChange={onChange}
         onSubmit={signUp}
         isInvaild={isInvalid}
+        isLoading={isLoading}
       />
     </SignUpWrapper>
   );

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const Img = styled.img`
   padding: 5px;
@@ -96,6 +95,8 @@ const ImageSlides = ({ images }) => {
           {newImageArray.map((item, i) => {
             if ((i === index) | (index < i) && i < index + 2) {
               return <Img src={item} data-index={i} key={i} />;
+            } else {
+              return null;
             }
           })}
         </div>

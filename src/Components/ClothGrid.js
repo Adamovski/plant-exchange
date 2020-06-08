@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import ClothCard from "./ClothCard";
 
+//use component to display grid of cloth cards
+
 const ClothDisplay = styled.div`
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -24,7 +26,7 @@ const ClothGrid = ({ items }) => {
     console.log(params);
     e.preventDefault();
     let id = e.currentTarget.dataset.id;
-    //using local storage to get the item as useParams has issues when refreshing page or entering via direct link - product wont update if is updated in store unless we reenter via search and filter page
+    //using local storage to get the item as useParams has issues when refreshing page or entering via direct link
     items.map((item) =>
       item.id === id ? localStorage.setItem(id, JSON.stringify(item)) : null
     );

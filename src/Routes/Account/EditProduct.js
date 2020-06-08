@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {
-  writeItemData,
   uploadImageAsPromise,
   editItemData,
 } from "../../helpers/firebaseHelpers";
-import EditProductForm from "./EditProductForm";
+import ProductForm from "./ProductForm";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
 import PreviewCard from "./PreviewCard";
@@ -14,13 +13,14 @@ const NewProductWrapper = styled.div`
   background: white;
   position: absolute;
   border-radius: 20px;
-  top: 20rem;
+  top: 88px;
   left: 50%;
-  height: 85vh;
-  transform: translate(-50%, -50%);
+  height: 80vh;
+  transform: translate(-50%);
   padding: 1rem 2rem;
-  width: 500px;
-  max-width: 95%;
+  width: 95%;
+  max-width: 500px;
+
   h2 {
     font-size: 1.75rem;
   }
@@ -33,11 +33,11 @@ const EditProduct = ({ initialInputState, setEdit }) => {
   const history = useHistory();
   const [inputState, setInputState] = useState(initialInputState);
   const { category, title, desc, images } = inputState;
-  const [imagesArray, setImagesArray] = useState(images);
+  const [imagesArray, setImagesArray] = useState(initialInputState.images);
   const { currentUserId } = useAppContext();
-  const [files, setFiles] = useState([]);
   const [filesUploaded, setFilesUploaded] = useState(false);
   const [loadPreview, setLoadPreview] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const validate = category && title && desc && imagesArray;
 
   //collect input values
@@ -60,7 +60,6 @@ const EditProduct = ({ initialInputState, setEdit }) => {
     images.map((item) =>
       uploadedFilesPlaceHolder.push(URL.createObjectURL(item))
     );
-    setFiles(uploadedFilesPlaceHolder);
     setFilesUploaded(true);
     setImagesArray(images);
   };
@@ -84,6 +83,7 @@ const EditProduct = ({ initialInputState, setEdit }) => {
 
   //upload images and then push input to firebase database
   const onSubmit = (e) => {
+    setIsLoading(true);
     let updatedImages = images;
     // console.log(images);
     e.preventDefault();
@@ -135,13 +135,15 @@ const EditProduct = ({ initialInputState, setEdit }) => {
     <>
       <NewProductWrapper>
         <h2>Edit your product</h2>
-        <EditProductForm
+        <ProductForm
           onChange={onChange}
           inputState={inputState}
           onSubmit={onSubmit}
           handleImages={handleImages}
           collectCategoryValue={collectCategoryValue}
           preview={openPreview}
+          filesRequired={false}
+          isLoading={isLoading}
         />
       </NewProductWrapper>
       {loadPreview ? (

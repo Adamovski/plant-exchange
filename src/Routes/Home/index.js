@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { getCategory, getFirst10 } from "../../helpers/firebaseHelpers";
+import { LoadingPopup } from "../../components/Loading";
 import ClothCard from "../../components/ClothCard";
 import styled from "styled-components";
 import SearchForm from "./SearchForm";
@@ -39,14 +40,15 @@ const ClothDisplay = styled.div`
 `;
 
 const Home = () => {
-  const [search, setSearch] = useState("");
   const [items, setItems] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
     const func = async () => {
       const data = await getFirst10();
       setItems(data);
+      setIsLoading(false);
     };
     func();
   }, []);
@@ -57,7 +59,6 @@ const Home = () => {
     if (data.length > 0) {
       setItems(data);
     }
-    setSearch(input);
   };
 
   const directToDetails = (e) => {
@@ -72,6 +73,7 @@ const Home = () => {
 
   return (
     <ClothWrapper>
+      <LoadingPopup isLoading={isLoading} />
       <div className="header">
         <h2>Available Clothes</h2>
         <SearchForm handleInput={handleInput} />

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, FormGroup, FormControl } from "react-bootstrap";
 import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
-import { seedDatabase } from "../../helpers/firebaseHelpers";
-import ImageSlides from "../../components/ImageSlides";
+// import { seedDatabase } from "../../helpers/firebaseHelpers";
+import { LoadingButton } from "../../components/Loading";
 
 const FormWrapper = styled.div`
   .desc {
@@ -20,14 +20,15 @@ const FormWrapper = styled.div`
   }
 `;
 
-const AddProductForm = ({
+const ProductForm = ({
   onSubmit,
   onChange,
   handleImages,
   inputState,
-  handleUpload,
+  isLoading,
   collectCategoryValue,
   preview,
+  filesRequired,
 }) => {
   const { title, desc } = inputState;
 
@@ -42,7 +43,7 @@ const AddProductForm = ({
             as="select"
             onChange={collectCategoryValue}
           >
-            <option disabled>Choose One</option>
+            <option disabled> Choose One</option>
             <option>T-Shirts</option>
             <option>Shirts</option>
             <option>Jumpers</option>
@@ -72,7 +73,7 @@ const AddProductForm = ({
         <FormGroup className="images" controlId="file">
           <FormControl
             className="upload"
-            required
+            required={filesRequired}
             onChange={handleImages}
             type="file"
             multiple
@@ -82,13 +83,18 @@ const AddProductForm = ({
           <Button variant="primary" type="submit" onClick={preview}>
             Preview
           </Button>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          <LoadingButton
+            text="Submit"
+            isLoading={isLoading}
+            type="submit"
+          ></LoadingButton>
         </div>
       </Form>
+      {/* <Button variant="primary" onClick={seedDatabase}>
+        Seed
+      </Button> */}
     </FormWrapper>
   );
 };
 
-export default AddProductForm;
+export default ProductForm;

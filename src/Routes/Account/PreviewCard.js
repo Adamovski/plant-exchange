@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import ImageSlides from "../../components/ImageSlides";
+import { Button } from "../../constants/stylingElements";
 
 const Popup = styled.div`
-  background: rgba(256, 256, 256);
+  background: white;
   position: absolute;
-  top: 56px;
+  border-radius: 20px;
+  top: 88px;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  height: 80vh;
+  transform: translate(-50%);
   height: 80vh;
   width: 80%;
 `;
@@ -37,7 +39,7 @@ const PreviewCard = ({ images, inputState, closePreview }) => {
         <ImageSlides images={images} />
         <p>{title}</p>
         <p>{desc}</p>
-        <button onClick={closePreview}>Close</button>
+        <Button onClick={closePreview}>Close</Button>
       </CardWrapper>
     </Popup>
   );

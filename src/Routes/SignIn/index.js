@@ -9,10 +9,11 @@ import SignUpLink from "./SignUpLink";
 import ForgotPasswordLink from "./ForgotPasswordLink";
 
 const SignInWrapper = styled.div`
+  height: 80vh;
   margin: 0 auto;
   margin-top: 56px;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   width: 400px;
   max-width: 80%;
   background: white;
@@ -21,6 +22,14 @@ const SignInWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  h2 {
+    color: black;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .links {
+    margin-top: 2rem;
+  }
 `;
 
 const SignInPage = () => {
@@ -36,10 +45,12 @@ const SignInPage = () => {
   const { userHasAuthenticated, setCurrentUserId } = useAppContext();
   //destructure input state
   const { password, email } = inputState;
+  const [isLoading, setIsLoading] = useState(false);
   const isInvalid = password === "" || email === "";
 
   const logIn = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -66,15 +77,18 @@ const SignInPage = () => {
 
   return (
     <SignInWrapper>
-      <h1>Sign In</h1>
+      <h2>Sign In</h2>
       <SignInForm
+        isLoading={isLoading}
         inputState={inputState}
         onChange={onChange}
         onSubmit={logIn}
         isInvalid={isInvalid}
       />
-      <SignUpLink />
-      <ForgotPasswordLink />
+      <div className="links">
+        <SignUpLink />
+        <ForgotPasswordLink />
+      </div>
     </SignInWrapper>
   );
 };

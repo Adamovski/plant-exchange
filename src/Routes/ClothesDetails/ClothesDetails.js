@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import * as ROUTES from "../../constants/routes";
 import ImageSlides from "../../components/ImageSlides";
 import { useParams, useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
@@ -48,7 +49,7 @@ const ClothesDetails = ({ cloth }) => {
   const deleteFromDb = () => {
     deleteItem(id, currentUserId);
     localStorage.removeItem(id);
-    history.push("/my-items");
+    history.push(ROUTES.MY_CLOTHES);
   };
 
   const handleEditClick = (e) => {

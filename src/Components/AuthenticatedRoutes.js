@@ -3,6 +3,8 @@ import { Route, Redirect } from "react-router-dom";
 import { useAppContext } from "../libs/contextLib";
 import * as ROUTES from "../constants/routes";
 
+//redirect depeding on authentication state
+
 export default function AuthenticatedRoute({ children, ...rest }) {
   const { isAuthenticated } = useAppContext();
   return (

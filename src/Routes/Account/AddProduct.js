@@ -5,7 +5,7 @@ import {
   writeItemData,
   uploadImageAsPromise,
 } from "../../helpers/firebaseHelpers";
-import AddProductForm from "./AddProductForm";
+import ProductForm from "./ProductForm";
 import { useHistory } from "react-router-dom";
 import { useAppContext } from "../../libs/contextLib";
 import PreviewCard from "./PreviewCard";
@@ -15,11 +15,11 @@ const NewProductWrapper = styled.div`
   margin-top: 56px;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  width: 400px;
-  max-width: 80%;
+  width: 95%;
+  max-width: 500px;
   background: white;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1rem 2rem;
   h2 {
     font-size: 1.75rem;
   }
@@ -39,6 +39,7 @@ const NewProduct = () => {
   const [inputState, setInputState] = useState(initialInputState);
   const [imagesArray, setImagesArray] = useState("");
   const [loadPreview, setLoadPreview] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const { category, title, desc } = inputState;
   const { currentUserId } = useAppContext();
@@ -88,12 +89,16 @@ const NewProduct = () => {
     e.stopPropagation();
     e.preventDefault();
     if (validate) {
+      setIsLoading(true);
       uploadImages().then((res) => {
         writeItemData(category, title, desc, res, currentUserId);
+        setIsLoading(false);
+        setInputState(initialInputState);
+        history.push(ROUTES.MY_CLOTHES);
       });
-      setInputState(initialInputState);
+    } else if (!category) {
+      alert("Choose a category");
     } else alert("You forgot something");
-    // history.push(ROUTES.HOME);
   };
 
   const openPreview = (e) => {
@@ -114,7 +119,8 @@ const NewProduct = () => {
     <>
       <NewProductWrapper>
         <h2>Add new product</h2>
-        <AddProductForm
+        <ProductForm
+          isLoading={isLoading}
           files={files}
           onChange={onChange}
           inputState={inputState}
@@ -123,6 +129,7 @@ const NewProduct = () => {
           collectCategoryValue={collectCategoryValue}
           preview={openPreview}
           setLoadPreview={setLoadPreview}
+          filesRequired={false}
           // handleUpload={uploadAll}
         />
       </NewProductWrapper>

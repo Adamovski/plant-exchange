@@ -4,9 +4,22 @@ import { Button } from "../../constants/stylingElements";
 import { useAppContext } from "../../libs/contextLib";
 import { getUserItems } from "../../helpers/firebaseHelpers";
 import styled from "styled-components";
-import ClothCard from "../../components/ClothCard";
-import { useHistory } from "react-router-dom";
 import ClothGrid from "../../components/ClothGrid";
+import { LoadingPopup } from "../../components/Loading";
+
+const UserWrapper = styled.div`
+  width: 95%;
+  min-height: 80vh;
+  background: rgba(256, 256, 256, 0.9);
+  border-radius: 20px;
+  margin-top: 5.5rem;
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+  ${(userItems) =>
+    !userItems | (userItems.length === 0)
+      ? `display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;`
+      : `display:static`}
+`;
 
 const ItemWrapper = styled.div`
   padding-top: 2rem;
@@ -35,44 +48,23 @@ const ClothWrapper = styled.div`
 `;
 
 const UserProducts = () => {
-  const history = useHistory();
   const [userItems, setUserItems] = useState("");
   const { currentUserId } = useAppContext();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const UserWrapper = styled.div`
-    width: 95%;
-    min-height: 80vh;
-    background: rgba(256, 256, 256, 0.9);
-    border-radius: 20px;
-    margin-top: 5.5rem;
-    margin-bottom: 2rem;
-    padding-top: 2rem;
-    ${!userItems | (userItems.length === 0)
-      ? `display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;`
-      : `display:static`}
-  `;
-
+  //load users item list
   useEffect(() => {
-    const func = async () => {
+    const fetchData = async () => {
       const myItems = await getUserItems(currentUserId);
       setUserItems(myItems);
+      setIsLoading(false);
     };
-    func();
-  }, [userItems]);
-
-  const directToDetails = (e) => {
-    e.preventDefault();
-    let id = e.target.value;
-    console.log(userItems);
-    //using local storage to get the item as useParams has issues when refreshing page or entering via direct link - product wont update if is updated in store unless we reenter via search and filter page
-    userItems.map((item) =>
-      item.id === id ? localStorage.setItem(id, JSON.stringify(item)) : null
-    );
-    history.push(`items/${id}`);
-  };
+    fetchData();
+  }, [currentUserId]);
 
   return (
-    <UserWrapper>
+    <UserWrapper userItems={userItems}>
+      <LoadingPopup isLoading={isLoading} />
       {userItems && userItems.length > 0 ? (
         <>
           <ClothWrapper>

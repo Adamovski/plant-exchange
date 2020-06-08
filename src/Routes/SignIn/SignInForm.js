@@ -1,14 +1,19 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 import styled from "styled-components";
-import { Button } from "../../constants/stylingElements";
+import { LoadingButton } from "../../components/Loading";
 
 const FormWrapper = styled.div`
-  margin: 2rem auto;
   width: 80%;
 `;
 
-const SignInForm = ({ inputState, onChange, onSubmit, isInvalid }) => {
+const SignInForm = ({
+  inputState,
+  onChange,
+  onSubmit,
+  isInvalid,
+  isLoading,
+}) => {
   const { email, password } = inputState;
   return (
     <FormWrapper>
@@ -31,9 +36,12 @@ const SignInForm = ({ inputState, onChange, onSubmit, isInvalid }) => {
             value={password}
           />
         </Form.Group>
-        <Button disabled={isInvalid} type="submit">
-          Sign In
-        </Button>
+        <LoadingButton
+          isLoading={isLoading}
+          disabled={isInvalid}
+          type="submit"
+          text="Sign In"
+        ></LoadingButton>
         {inputState.error && <p>{inputState.error.message}</p>}
       </Form>
     </FormWrapper>

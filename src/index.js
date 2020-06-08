@@ -4,6 +4,7 @@ import * as serviceWorker from "./serviceWorker";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
+//ignore warning - firebase declared here to be avaiable to all app
 import { firebaseApp } from "./base";
 import App from "./App";
 

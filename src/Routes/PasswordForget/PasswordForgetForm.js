@@ -1,18 +1,28 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-import { Button } from "../../constants/stylingElements";
+import { LoadingButton } from "../../components/Loading";
 import styled from "styled-components";
 
 const FormWrapper = styled.div`
   margin: 2rem auto;
-  width: 40%;
+  width: 80%;
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
-const PasswordForgetForm = ({ onSubmit, onChange, isInvalid, inputState }) => {
+const PasswordForgetForm = ({
+  onSubmit,
+  onChange,
+  isInvalid,
+  inputState,
+  isLoading,
+}) => {
   const { email, error } = inputState;
   return (
     <FormWrapper>
-      <Form onSubmit={onSubmit}>
+      <Form className="form" onSubmit={onSubmit}>
         <Form.Group controlId="email">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -22,9 +32,12 @@ const PasswordForgetForm = ({ onSubmit, onChange, isInvalid, inputState }) => {
             value={email}
           />
         </Form.Group>
-        <Button disabled={isInvalid} variant="primary" type="submit">
-          Submit
-        </Button>
+        <LoadingButton
+          disabled={isInvalid}
+          isLoading={isLoading}
+          text="Submit"
+          type="submit"
+        ></LoadingButton>
         {error && <p>{error.message}</p>}
       </Form>
     </FormWrapper>

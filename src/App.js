@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Navigation from "./containers/Navigation/index";
 import Router from "./routes";
 import { AppContext } from "./libs/contextLib";
@@ -6,17 +6,15 @@ import { Wrapper, Background } from "./constants/stylingElements";
 import Footer from "./components/Footer";
 
 function App() {
+  //get details from local storage
+  let currentAuth = JSON.parse(localStorage.getItem("isAuthenticatedLocal"));
+  let localeStoragetUserId = localStorage.getItem("currentUserId")
+    ? localStorage.getItem("currentUserId")
+    : "";
   //declare authentication state
-  const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isAuthenticated, userHasAuthenticated] = useState(currentAuth);
   //current userId
-  const [currentUserId, setCurrentUserId] = useState("");
-
-  useEffect(() => {
-    let currentAuth = localStorage.getItem("isAuthenticatedLocal");
-    let currentUserId = localStorage.getItem("currentUserId");
-    userHasAuthenticated(currentAuth);
-    setCurrentUserId(currentUserId);
-  }, []);
+  const [currentUserId, setCurrentUserId] = useState(localeStoragetUserId);
 
   return (
     <>
