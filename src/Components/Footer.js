@@ -104,10 +104,7 @@ const Footer = () => {
         <div className="socialLinks">
           <div />
           <div>
-            <a
-              href="https://www.facebook.com/SmoothieBox-Box-460801817781007/"
-              id="facebookLogo"
-            >
+            <a href="#">
               <FontAwesomeIcon icon={faFacebookF} />
             </a>
           </div>

@@ -9,10 +9,16 @@ const CardWrapper = styled.div`
   grid-gap: 2rem;
   background: rgb(0, 0, 0, 0.05);
   justify-content: space-between;
-  height: 250px;
+  height: 300px;
   width: 180px;
   padding: 1rem;
   cursor: pointer;
+  @media (max-width: 400px) {
+    width: 140px;
+    height: 250px;
+    padding: 0.5rem;
+    grid-gap: 1rem;
+  }
   @media (min-width: 600px) {
     width: 280px;
     height: 350px;
@@ -22,6 +28,12 @@ const CardWrapper = styled.div`
     overflow: hidden;
     margin: 0;
     font-size: 0.75rem;
+    @media (max-width: 400px) {
+       {
+        padding: 0;
+        margin: 0;
+      }
+    }
   }
   img {
     margin: 0 auto;
@@ -29,6 +41,11 @@ const CardWrapper = styled.div`
     width: 140px;
     height: 140px;
     object-fit: cover;
+    @media (max-width: 400px) {
+      width: 120px;
+      height: 140px;
+      padding: 0.5rem;
+    }
     @media (min-width: 600px) {
       width: 240px;
       height: 240px;

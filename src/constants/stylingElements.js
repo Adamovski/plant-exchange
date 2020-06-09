@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   min-height: 100vh;
   background: rgb(250, 250, 250);
   background: rgba(0, 0, 0, 0.4)
-    url(${require("./../assets/images/suitcase.jpg")});
+    url(${require("./../assets/images/suitcase.jpg")}) no-repeat center center;
   background-blend-mode: darken;
   background-size: cover;
   object-fit: cover;
