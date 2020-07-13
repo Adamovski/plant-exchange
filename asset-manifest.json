@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/plant-exchange/static/css/main.b837fbc3.chunk.css",
+    "main.js": "/plant-exchange/static/js/main.90fdbaf7.chunk.js",
+    "main.js.map": "/plant-exchange/static/js/main.90fdbaf7.chunk.js.map",
+    "runtime-main.js": "/plant-exchange/static/js/runtime-main.311583e9.js",
+    "runtime-main.js.map": "/plant-exchange/static/js/runtime-main.311583e9.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/plant-exchange/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.475440cc.chunk.js": "/plant-exchange/static/js/2.475440cc.chunk.js",
+    "static/js/2.475440cc.chunk.js.map": "/plant-exchange/static/js/2.475440cc.chunk.js.map",
+    "index.html": "/plant-exchange/index.html",
+    "precache-manifest.23c6360feb8275507e13dd4fe5819586.js": "/plant-exchange/precache-manifest.23c6360feb8275507e13dd4fe5819586.js",
+    "service-worker.js": "/plant-exchange/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/plant-exchange/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.b837fbc3.chunk.css.map": "/plant-exchange/static/css/main.b837fbc3.chunk.css.map",
+    "static/js/2.475440cc.chunk.js.LICENSE.txt": "/plant-exchange/static/js/2.475440cc.chunk.js.LICENSE.txt",
+    "static/media/forest-931706_1920.jpg": "/plant-exchange/static/media/forest-931706_1920.f9c3ec0d.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.311583e9.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.475440cc.chunk.js",
+    "static/css/main.b837fbc3.chunk.css",
+    "static/js/main.90fdbaf7.chunk.js"
+  ]
+}
