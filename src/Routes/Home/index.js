@@ -75,7 +75,7 @@ const Home = () => {
     <ClothWrapper>
       <LoadingPopup isLoading={isLoading} />
       <div className="header">
-        <h2>Available Clothes</h2>
+        <h2>Available Plants</h2>
         <SearchForm handleInput={handleInput} />
       </div>
       <ClothDisplay>

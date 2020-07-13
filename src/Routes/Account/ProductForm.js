@@ -2,7 +2,7 @@ import React from "react";
 import { Form, FormGroup, FormControl } from "react-bootstrap";
 import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
-// import { seedDatabase } from "../../helpers/firebaseHelpers";
+import { seedDatabase } from "../../helpers/firebaseHelpers";
 import { LoadingButton } from "../../components/Loading";
 
 const FormWrapper = styled.div`
@@ -44,11 +44,9 @@ const ProductForm = ({
             onChange={collectCategoryValue}
           >
             <option disabled> Choose One</option>
-            <option>T-Shirts</option>
-            <option>Shirts</option>
-            <option>Jumpers</option>
-            <option>Hats</option>
-            <option>Scarfs</option>
+            <option>Flowers</option>
+            <option>Fruit Trees</option>
+            <option>Tropical Plants</option>
           </Form.Control>
         </Form.Group>
         <FormGroup controlId="title">
@@ -90,9 +88,9 @@ const ProductForm = ({
           ></LoadingButton>
         </div>
       </Form>
-      {/* <Button variant="primary" onClick={seedDatabase}>
+      <Button variant="primary" onClick={seedDatabase}>
         Seed
-      </Button> */}
+      </Button>
     </FormWrapper>
   );
 };

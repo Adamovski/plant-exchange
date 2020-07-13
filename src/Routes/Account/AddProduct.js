@@ -118,7 +118,7 @@ const NewProduct = () => {
   return (
     <>
       <NewProductWrapper>
-        <h2>Add new product</h2>
+        <h2>Add new plant</h2>
         <ProductForm
           isLoading={isLoading}
           files={files}

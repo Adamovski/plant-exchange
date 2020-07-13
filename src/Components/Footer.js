@@ -99,7 +99,7 @@ const Footer = () => {
           </Link>
         </div>
         <div className="linkList">
-          <p className="listTitle">Join the clothing revolution</p>
+          <p className="listTitle">Join the plant revolution</p>
         </div>
         <div className="socialLinks">
           <div />

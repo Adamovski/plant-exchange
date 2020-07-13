@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import clothes from "../sampleClothes";
+import plants from "../samplePlants"
 
 //create user in db function
 const writeUserData = (username, email, uid) => {
@@ -13,8 +13,8 @@ const writeUserData = (username, email, uid) => {
 export { writeUserData };
 
 const seedDatabase = () => {
-  clothes.map((cloth) => {
-    const { category, title, desc, images } = cloth;
+  plants.map((plant) => {
+    const { category, title, desc, images } = plant;
     let newItemKey = firebase.database().ref().child("items").push().key;
     const item = `items/${newItemKey}`;
     firebase

@@ -134,7 +134,7 @@ const EditProduct = ({ initialInputState, setEdit }) => {
   return (
     <>
       <NewProductWrapper>
-        <h2>Edit your product</h2>
+        <h2>Edit your Plant</h2>
         <ProductForm
           onChange={onChange}
           inputState={inputState}

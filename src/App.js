@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navigation from "./containers/Navigation/index";
-import Router from "./routes";
-import { AppContext } from "./libs/contextLib";
+import Router from "./routes/index"
+import { AppContext } from "./libs/contextLib"
 import { Wrapper, Background } from "./constants/stylingElements";
 import Footer from "./components/Footer";
 

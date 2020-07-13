@@ -53,7 +53,7 @@ const NavigationAuth = () => {
     <NavbarWrapper>
       <Navbar className="navbar" fixed bg="light" expand="lg">
         <LinkContainer to={ROUTES.LANDING}>
-          <Navbar.Brand>The Cloth Exchange</Navbar.Brand>
+          <Navbar.Brand>The Plant Exchange</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
@@ -66,10 +66,10 @@ const NavigationAuth = () => {
             </LinkContainer>
             <NavDropdown title="Account" id="basic-nav-dropdown">
               <LinkContainer to={"/my-clothes"}>
-                <NavDropdown.Item>My Clothes</NavDropdown.Item>
+                <NavDropdown.Item>My Plants</NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to={"/add-item"}>
-                <NavDropdown.Item>Add clothes</NavDropdown.Item>
+                <NavDropdown.Item>Add Plants</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item>
                 <SignOutSpan />

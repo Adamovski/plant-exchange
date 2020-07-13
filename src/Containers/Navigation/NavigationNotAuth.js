@@ -27,7 +27,7 @@ const NavigationNotAuth = () => {
     <NavbarWrapper>
       <Navbar className="navbar" fixed bg="light" expand="lg">
         <LinkContainer to={ROUTES.LANDING}>
-          <Navbar.Brand>The Cloth Exchange</Navbar.Brand>
+          <Navbar.Brand>The Plant Exchange</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">

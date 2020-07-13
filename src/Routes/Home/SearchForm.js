@@ -20,9 +20,9 @@ export default function SearchForm({ handleInput }) {
         <Form.Group controlId="formBasicEmail">
           <Form.Control className="select" as="select" onChange={handleInput}>
             <option>Select A Category</option>
-            <option>T-Shirts</option>
-            <option>Shirts</option>
-            <option>Hats</option>
+            <option>Flowers</option>
+            <option>Fruit trees</option>
+            <option>Tropical Plants</option>
           </Form.Control>
         </Form.Group>
       </Form>
