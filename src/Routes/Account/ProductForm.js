@@ -2,7 +2,7 @@ import React from "react";
 import { Form, FormGroup, FormControl } from "react-bootstrap";
 import { Button } from "../../constants/stylingElements";
 import styled from "styled-components";
-import { seedDatabase } from "../../helpers/firebaseHelpers";
+// import { seedDatabase } from "../../helpers/firebaseHelpers";
 import { LoadingButton } from "../../components/Loading";
 
 const FormWrapper = styled.div`
@@ -88,9 +88,9 @@ const ProductForm = ({
           ></LoadingButton>
         </div>
       </Form>
-      <Button variant="primary" onClick={seedDatabase}>
+      {/* <Button variant="primary" onClick={seedDatabase}>
         Seed
-      </Button>
+      </Button> */}
     </FormWrapper>
   );
 };

@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import plants from "../samplePlants"
+import plants from "../samplePlants";
 
 //create user in db function
 const writeUserData = (username, email, uid) => {
@@ -41,6 +41,7 @@ export { seedDatabase };
 const writeItemData = (category, title, desc, images, uid) => {
   let newItemKey = firebase.database().ref().child("items").push().key;
   const item = `items/${newItemKey}`;
+  console.log(item);
   firebase
     .database()
     .ref(item)
